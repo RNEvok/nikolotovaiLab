@@ -34,14 +34,14 @@ public class Bank {
   public String toString() {
     return 
       "\n{\n" +
-      "\tid: " + id + "\n" +
-      "\tname: " + name + " \n" +
-      "\tofficeCount: " + officeCount + "\n" +
-      "\tatmCount: " + atmCount + "\n" +
-      "\temployeeCount: " + employeeCount + "\n" +
-      "\tuserCount: " + userCount + "\n" +
-      "\trating: " + rating + "\n" +
-      "\ttotalMoney: " + String.format("%.2f", totalMoney) + "\n" +
+      "\tid: " + id + ",\n" +
+      "\tname: " + name + ",\n" +
+      "\tofficeCount: " + officeCount + ",\n" +
+      "\tatmCount: " + atmCount + ",\n" +
+      "\temployeeCount: " + employeeCount + ",\n" +
+      "\tuserCount: " + userCount + ",\n" +
+      "\trating: " + rating + ",\n" +
+      "\ttotalMoney: " + String.format("%.2f", totalMoney) + ",\n" +
       "\tinterestRate: " + String.format("%.2f", interestRate) + "\n" +
       "}\n";
   }
@@ -108,5 +108,13 @@ public class Bank {
 
   public double getTotalMoney() {
     return totalMoney;
+  }
+
+  public void setInterestRate(double interestRate) {
+    this.interestRate = interestRate;
+  }
+
+  public double getInterestRate() {
+    return interestRate;
   }
 }
