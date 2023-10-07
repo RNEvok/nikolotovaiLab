@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
       return null;
     }
 
-    User createdUser = new User(user.getId(), user.getName(), user.getBirthDate());
+    User createdUser = new User(user);
 
     final Random random = new Random();
 

@@ -29,17 +29,25 @@ public class User extends Human {
     this.creditRating = creditRating;
   }
 
-  public User(int id, String name, LocalDate birthDate) {
-    super(id, name, birthDate);
+  public User(String name, LocalDate birthDate) {
+    super(name, birthDate);
     initializeWithDefaults();
   }
 
-  public User(int id, String name, LocalDate birthDate, String placeOfWork, double monthlyIncome, Bank bank, int creditRating) {
-    super(id, name, birthDate);
+  public User(String name, LocalDate birthDate, String placeOfWork, double monthlyIncome, Bank bank, int creditRating) {
+    super(name, birthDate);
     this.placeOfWork = placeOfWork;
     this.monthlyIncome = monthlyIncome;
     this.bank = bank;
     this.creditRating = creditRating;
+  }
+
+  public User(User user) {
+    super(user.getId(), user.getName(), user.getBirthDate());
+    this.placeOfWork = user.getPlaceOfWork();
+    this.monthlyIncome = user.getMonthlyIncome();
+    this.bank = user.getBank();
+    this.creditRating = user.getCreditRating();
   }
 
   @Override

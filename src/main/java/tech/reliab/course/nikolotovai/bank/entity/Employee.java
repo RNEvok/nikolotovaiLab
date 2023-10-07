@@ -35,8 +35,8 @@ public class Employee extends Human {
     this.salary = salary;
   }
 
-  public Employee(int id, String name, LocalDate birthDate, String jobTitle, Bank bank, boolean isWorkingFromHome, BankOffice bankOffice, boolean isCreditAvailable, double salary) {
-    super(id, name, birthDate);
+  public Employee(String name, LocalDate birthDate, String jobTitle, Bank bank, boolean isWorkingFromHome, BankOffice bankOffice, boolean isCreditAvailable, double salary) {
+    super(name, birthDate);
     this.jobTitle = jobTitle;
     this.bank = bank;
     this.isWorkingFromHome = isWorkingFromHome;

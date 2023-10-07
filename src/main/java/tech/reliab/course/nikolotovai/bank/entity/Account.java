@@ -1,18 +1,29 @@
 package reliab.course.nikolotovai.bank.entity;
 
 public class Account {
+  private static int currentId;
   protected int id;
   protected User user;
   protected Bank bank;
 
+  private void initializeId() {
+    id = currentId++;
+  };
+
   private void initializeWithDefaults() {
-    id = -1;
     user = null;
     bank = null;
   }
 
   public Account() {
+    initializeId();
     initializeWithDefaults();
+  }
+
+  public Account(User user, Bank bank) {
+    initializeId();
+    this.user = user;
+    this.bank = bank;
   }
 
   public Account(int id, User user, Bank bank) {

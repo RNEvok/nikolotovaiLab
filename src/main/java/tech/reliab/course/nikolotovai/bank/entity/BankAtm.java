@@ -3,6 +3,7 @@ package reliab.course.nikolotovai.bank.entity;
 import reliab.course.nikolotovai.bank.utils.BankAtmStatus;
 
 public class BankAtm {
+  private static int currentId;
   private int id;
   private String name;
   private String address;
@@ -14,9 +15,12 @@ public class BankAtm {
   private boolean isCashDepositAvailable;
   private double totalMoney;
   private double maintenanceCost;
+
+  private void initializeId() {
+    id = currentId++;
+  };
   
   private void initializeWithDefaults() {
-    id = -1;
     name = "No name";
     address = "No address";
     status = BankAtmStatus.NOT_WORKING;
@@ -30,11 +34,12 @@ public class BankAtm {
   }
 
   public BankAtm() {
+    initializeId();
     initializeWithDefaults();
   }
 
-  public BankAtm(int id, String name, String address, BankAtmStatus status, Bank bank, BankOffice bankOffice, Employee employee, boolean isCashWithdrawalAvailable, boolean isCashDepositAvailable, double totalMoney, double maintenanceCost) {
-    this.id = id;
+  public BankAtm(String name, String address, BankAtmStatus status, Bank bank, BankOffice bankOffice, Employee employee, boolean isCashWithdrawalAvailable, boolean isCashDepositAvailable, double totalMoney, double maintenanceCost) {
+    initializeId();
     this.name = name;
     this.address = address;
     this.status = status;

@@ -3,18 +3,29 @@ package reliab.course.nikolotovai.bank.entity;
 import java.time.LocalDate;
 
 public class Human {
+  private static int currentId;
   protected int id;
   protected String name;
   protected LocalDate birthDate;
 
+  private void initializeId() {
+    id = currentId++;
+  };
+
   private void initializeWithDefaults() {
-    id = -1;
     name = "No name";
     birthDate = null;
   }
 
   public Human() {
+    initializeId();
     initializeWithDefaults();
+  }
+
+  public Human(String name, LocalDate birthDate) {
+    initializeId();
+    this.name = name;
+    this.birthDate = birthDate;
   }
 
   public Human(int id, String name, LocalDate birthDate) {

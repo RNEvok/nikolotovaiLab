@@ -1,6 +1,7 @@
 package reliab.course.nikolotovai.bank.entity;
 
 public class BankOffice {
+  private static int currentId;
   private int id;
   private String name;
   private String address;
@@ -14,8 +15,11 @@ public class BankOffice {
   private double totalMoney;
   private double rentPrice;
 
+  private void initializeId() {
+    id = currentId++;
+  };
+
   private void initializeWithDefaults() {
-    id = -1;
     name = "No name";
     address = "No address";
     bank = null;
@@ -30,7 +34,15 @@ public class BankOffice {
   }
 
   public BankOffice() {
+    initializeId();
     initializeWithDefaults();
+  }
+
+  public BankOffice(String name, String address) {
+    initializeId();
+    initializeWithDefaults();
+    this.name = name;
+    this.address = address;
   }
 
   public BankOffice(int id, String name, String address) {
@@ -40,8 +52,8 @@ public class BankOffice {
     this.address = address;
   }
 
-  public BankOffice(int id, String name, String address, Bank bank, boolean isWorking, boolean isAtmPlaceable, int atmCount, boolean isCreditAvailable, boolean isCashWithdrawalAvailable, boolean isCashDepositAvailable, double totalMoney, double rentPrice) {
-    this.id = id;
+  public BankOffice(String name, String address, Bank bank, boolean isWorking, boolean isAtmPlaceable, int atmCount, boolean isCreditAvailable, boolean isCashWithdrawalAvailable, boolean isCashDepositAvailable, double totalMoney, double rentPrice) {
+    initializeId();
     this.name = name;
     this.address = address;
     this.bank = bank;

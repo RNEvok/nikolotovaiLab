@@ -44,8 +44,8 @@ public class CreditAccount extends Account {
     this.paymentAccount = paymentAccount;
   }
 
-  public CreditAccount(int id, User user, Bank bank, LocalDate dateStart, LocalDate dateEnd, int monthCount, double creditAmount, double remainingCreditAmount, double monthlyPayment, double interestRate, Employee employee, PaymentAccount paymentAccount) {
-    super(id, user, bank);
+  public CreditAccount(User user, Bank bank, LocalDate dateStart, LocalDate dateEnd, int monthCount, double creditAmount, double remainingCreditAmount, double monthlyPayment, double interestRate, Employee employee, PaymentAccount paymentAccount) {
+    super(user, bank);
     this.dateStart = dateStart;
     this.dateEnd = dateEnd;
     this.monthCount = monthCount;

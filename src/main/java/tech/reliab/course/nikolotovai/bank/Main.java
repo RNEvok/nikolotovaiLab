@@ -31,12 +31,11 @@ public class Main {
     Locale.setDefault(Locale.US);
 
     BankService bankService = new BankServiceImpl();
-    Bank bank = bankService.create(new Bank(1, "Nikolotov Bank"));
+    Bank bank = bankService.create(new Bank("Nikolotov Bank"));
     System.out.println(bank);
 
     BankOfficeService bankOfficeService = new BankOfficeServiceImpl();
     BankOffice bankOffice = bankOfficeService.create(new BankOffice(
-      1, 
       "Main office of Nikolotov Bank", 
       "Belgorod, Pushkina st., 1", 
       bank, 
@@ -52,23 +51,23 @@ public class Main {
     System.out.println(bankOffice);
 
     EmployeeService employeeService = new EmployeeServiceImpl();
-    Employee employee = employeeService.create(new Employee(1, "Aleksandr", LocalDate.of(2002, 7, 21), "CEO", bank, true, bankOffice, true, 1));
+    Employee employee = employeeService.create(new Employee("Aleksandr", LocalDate.of(2002, 7, 21), "CEO", bank, true, bankOffice, true, 1));
     System.out.println(employee);
 
     AtmService atmService = new AtmServiceImpl();
-    BankAtm bankAtm = new BankAtm(1, "Atm1", bankOffice.getAddress(), BankAtmStatus.WORKING, bank, bankOffice, employee, true, true, 0, 25);
+    BankAtm bankAtm = atmService.create(new BankAtm("Atm1", bankOffice.getAddress(), BankAtmStatus.WORKING, bank, bankOffice, employee, true, true, 0, 25));
     System.out.println(bankAtm);
 
     UserService userService = new UserServiceImpl();
-    User user = userService.create(new User(2, "Luna", LocalDate.of(1999, 1, 15), "Google", 3000.0, bank, 10000));
+    User user = userService.create(new User("Luna", LocalDate.of(1999, 1, 15), "Google", 3000.0, bank, 10000));
     System.out.println(user);
 
     PaymentAccountService paymentAccountService = new PaymentAccountServiceImpl();
-    PaymentAccount paymentAccount = paymentAccountService.create(new PaymentAccount(1, user, bank, 500));
+    PaymentAccount paymentAccount = paymentAccountService.create(new PaymentAccount(user, bank, 500));
     System.out.println(paymentAccount);
 
     CreditAccountService creditAccountService = new CreditAccountServiceImpl();
-    CreditAccount creditAccount = creditAccountService.create(new CreditAccount(2, user, bank, LocalDate.of(2022, 1, 1), LocalDate.of(2025, 1, 1), 36, 3600, 3600, 100, 5, employee, paymentAccount));
+    CreditAccount creditAccount = creditAccountService.create(new CreditAccount(user, bank, LocalDate.of(2022, 1, 1), LocalDate.of(2025, 1, 1), 36, 3600, 3600, 100, 5, employee, paymentAccount));
     System.out.println(creditAccount);
   }
 }

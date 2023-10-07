@@ -17,8 +17,8 @@ public class PaymentAccount extends Account {
     this.balance = balance;
   }
 
-  public PaymentAccount(int id, User user, Bank bank, double balance) {
-    super(id, user, bank);
+  public PaymentAccount(User user, Bank bank, double balance) {
+    super(user, bank);
     this.balance = balance;
   }
 
