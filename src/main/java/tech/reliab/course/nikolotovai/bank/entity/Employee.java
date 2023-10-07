@@ -45,6 +45,16 @@ public class Employee extends Human {
     this.salary = salary;
   }
 
+  public Employee(Employee employee) {
+    super(employee.getId(), employee.getName(), employee.getBirthDate());
+    this.jobTitle = employee.getJobTitle();
+    this.bank = employee.getBank();
+    this.isWorkingFromHome = employee.getIsWorkingFromHome();
+    this.bankOffice = employee.getBankOffice();
+    this.isCreditAvailable = employee.getIsCreditAvailable();
+    this.salary = employee.getSalary();
+  }
+
   @Override
   public String toString() {
     return 

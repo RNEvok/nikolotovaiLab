@@ -47,6 +47,20 @@ public class BankAtm {
     this.maintenanceCost = maintenanceCost;
   }
 
+  public BankAtm(BankAtm bankAtm) {
+    this.id = bankAtm.getId();
+    this.name = bankAtm.getName();
+    this.address = bankAtm.getAddress();
+    this.status = bankAtm.getStatus();
+    this.bank = bankAtm.getBank();
+    this.bankOffice = bankAtm.getBankOffice();
+    this.employee = bankAtm.getEmployee();
+    this.isCashWithdrawalAvailable = bankAtm.getIsCashWithdrawalAvailable();
+    this.isCashDepositAvailable = bankAtm.getIsCashDepositAvailable();
+    this.totalMoney = bankAtm.getTotalMoney();
+    this.maintenanceCost = bankAtm.getMaintenanceCost();
+  }
+
   @Override
   public String toString() {
     return 

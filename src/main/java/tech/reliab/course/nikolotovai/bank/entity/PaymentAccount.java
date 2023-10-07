@@ -19,7 +19,12 @@ public class PaymentAccount extends Account {
 
   public PaymentAccount(int id, User user, Bank bank, double balance) {
     super(id, user, bank);
-     this.balance = balance;
+    this.balance = balance;
+  }
+
+  public PaymentAccount(PaymentAccount paymentAccount) {
+    super(paymentAccount.getId(), paymentAccount.getUser(), paymentAccount.getBank());
+    this.balance = paymentAccount.getBalance();
   }
 
   @Override

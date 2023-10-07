@@ -29,6 +29,11 @@ public class User extends Human {
     this.creditRating = creditRating;
   }
 
+  public User(int id, String name, LocalDate birthDate) {
+    super(id, name, birthDate);
+    initializeWithDefaults();
+  }
+
   public User(int id, String name, LocalDate birthDate, String placeOfWork, double monthlyIncome, Bank bank, int creditRating) {
     super(id, name, birthDate);
     this.placeOfWork = placeOfWork;
@@ -61,6 +66,10 @@ public class User extends Human {
 
   public void setMonthlyIncome(double monthlyIncome) {
     this.monthlyIncome = monthlyIncome;
+  }
+
+  public double getMonthlyIncome() {
+    return monthlyIncome;
   }
 
   public void setBank(Bank bank) {

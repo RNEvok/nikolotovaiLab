@@ -9,24 +9,66 @@ import reliab.course.nikolotovai.bank.entity.CreditAccount;
 import reliab.course.nikolotovai.bank.entity.Employee;
 import reliab.course.nikolotovai.bank.entity.PaymentAccount;
 import reliab.course.nikolotovai.bank.entity.User;
+import reliab.course.nikolotovai.bank.service.AtmService;
+import reliab.course.nikolotovai.bank.service.BankOfficeService;
 import reliab.course.nikolotovai.bank.service.BankService;
+import reliab.course.nikolotovai.bank.service.CreditAccountService;
+import reliab.course.nikolotovai.bank.service.EmployeeService;
+import reliab.course.nikolotovai.bank.service.PaymentAccountService;
+import reliab.course.nikolotovai.bank.service.UserService;
+import reliab.course.nikolotovai.bank.service.impl.AtmServiceImpl;
+import reliab.course.nikolotovai.bank.service.impl.BankOfficeServiceImpl;
 import reliab.course.nikolotovai.bank.service.impl.BankServiceImpl;
+import reliab.course.nikolotovai.bank.service.impl.CreditAccountServiceImpl;
+import reliab.course.nikolotovai.bank.service.impl.EmployeeServiceImpl;
+import reliab.course.nikolotovai.bank.service.impl.PaymentAccountServiceImpl;
+import reliab.course.nikolotovai.bank.service.impl.UserServiceImpl;
 import reliab.course.nikolotovai.bank.utils.BankAtmStatus;
 
 
 public class Main {
   public static void main(String[] args) {
     Locale.setDefault(Locale.US);
-    // System.out.println("Hello world!");
+
     BankService bankService = new BankServiceImpl();
-    Bank bank = new Bank(10, "hehe");
-    BankOffice bankOffice = new BankOffice(1, "office1", "pushkina");
-    Employee employee = new Employee(1, "Alex", LocalDate.of(1999, 7, 25), "CEO", bank, true, bankOffice, true, 1000);  
-    BankAtm bankAtm = new BankAtm(1, "Atm1", "pushkina", BankAtmStatus.WORKING, bank, bankOffice, employee, true, true, 5000, 25);
-    User user = new User(2, "Luna", LocalDate.of(1998, 1, 15), "Google", 3000.0, bank, 10000);
-    PaymentAccount paymentAccount = new PaymentAccount(1, user, bank, 500);
-    CreditAccount creditAccount = new CreditAccount(2, user, bank, LocalDate.of(2022, 1, 1), LocalDate.of(2025, 1, 1), 36, 3600, 100, 5, employee, paymentAccount);
-    
-    System.out.println(creditAccount.toString());
+    Bank bank = bankService.create(new Bank(1, "Nikolotov Bank"));
+    System.out.println(bank);
+
+    BankOfficeService bankOfficeService = new BankOfficeServiceImpl();
+    BankOffice bankOffice = bankOfficeService.create(new BankOffice(
+      1, 
+      "Main office of Nikolotov Bank", 
+      "Belgorod, Pushkina st., 1", 
+      bank, 
+      true, 
+      true,
+      0,
+      true,
+      true,
+      true,
+      bank.getTotalMoney(),
+      950
+    ));
+    System.out.println(bankOffice);
+
+    EmployeeService employeeService = new EmployeeServiceImpl();
+    Employee employee = employeeService.create(new Employee(1, "Aleksandr", LocalDate.of(2002, 7, 21), "CEO", bank, true, bankOffice, true, 1));
+    System.out.println(employee);
+
+    AtmService atmService = new AtmServiceImpl();
+    BankAtm bankAtm = new BankAtm(1, "Atm1", bankOffice.getAddress(), BankAtmStatus.WORKING, bank, bankOffice, employee, true, true, 0, 25);
+    System.out.println(bankAtm);
+
+    UserService userService = new UserServiceImpl();
+    User user = userService.create(new User(2, "Luna", LocalDate.of(1999, 1, 15), "Google", 3000.0, bank, 10000));
+    System.out.println(user);
+
+    PaymentAccountService paymentAccountService = new PaymentAccountServiceImpl();
+    PaymentAccount paymentAccount = paymentAccountService.create(new PaymentAccount(1, user, bank, 500));
+    System.out.println(paymentAccount);
+
+    CreditAccountService creditAccountService = new CreditAccountServiceImpl();
+    CreditAccount creditAccount = creditAccountService.create(new CreditAccount(2, user, bank, LocalDate.of(2022, 1, 1), LocalDate.of(2025, 1, 1), 36, 3600, 3600, 100, 5, employee, paymentAccount));
+    System.out.println(creditAccount);
   }
 }

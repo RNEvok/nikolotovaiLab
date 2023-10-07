@@ -55,6 +55,21 @@ public class BankOffice {
     this.rentPrice = rentPrice;
   }
 
+  public BankOffice(BankOffice bankOffice) {
+    this.id = bankOffice.getId();
+    this.name = bankOffice.getName();
+    this.address = bankOffice.getAddress();
+    this.bank = bankOffice.getBank();
+    this.isWorking = bankOffice.getIsWorking();
+    this.isAtmPlaceable = bankOffice.getIsAtmPlaceable();
+    this.atmCount = bankOffice.getAtmCount();
+    this.isCreditAvailable = bankOffice.getIsCreditAvailable();
+    this.isCashWithdrawalAvailable = bankOffice.getIsCashWithdrawalAvailable();
+    this.isCashDepositAvailable = bankOffice.getIsCashDepositAvailable();
+    this.totalMoney = bankOffice.getTotalMoney();
+    this.rentPrice = bankOffice.getRentPrice();
+  }
+
   @Override
   public String toString() {
     return 
