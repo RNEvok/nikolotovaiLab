@@ -85,7 +85,7 @@ public class BankOffice {
   @Override
   public String toString() {
     return 
-      "\n{\n" +
+      "\nBank Office: {\n" +
       "\tid: " + id + ",\n" +
       "\tname: " + name + ",\n" +
       "\taddress: " + address + ",\n" +

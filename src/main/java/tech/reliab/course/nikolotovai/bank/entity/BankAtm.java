@@ -69,7 +69,7 @@ public class BankAtm {
   @Override
   public String toString() {
     return 
-      "\n{\n" +
+      "\nBank ATM: {\n" +
       "\tid: " + id + ",\n" +
       "\tname: " + name + ",\n" +
       "\taddress: " + address + ",\n" +

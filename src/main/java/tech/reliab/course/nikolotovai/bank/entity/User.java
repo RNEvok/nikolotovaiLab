@@ -53,7 +53,7 @@ public class User extends Human {
   @Override
   public String toString() {
     return 
-      "\n{\n" +
+      "\nUser: {\n" +
       "\tid: " + id + ",\n" +
       "\tname: " + name + ",\n" +
       "\tbirthDate: " + (birthDate == null ? "null" : birthDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))) + ",\n" +

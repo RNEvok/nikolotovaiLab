@@ -58,7 +58,7 @@ public class Employee extends Human {
   @Override
   public String toString() {
     return 
-      "\n{\n" +
+      "\nBank Employee: {\n" +
       "\tid: " + id + ",\n" +
       "\tname: " + name + ",\n" +
       "\tbirthDate: " + (birthDate == null ? "null" : birthDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))) + ",\n" +

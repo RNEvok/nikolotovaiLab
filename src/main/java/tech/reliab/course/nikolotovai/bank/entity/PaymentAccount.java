@@ -30,7 +30,7 @@ public class PaymentAccount extends Account {
   @Override
   public String toString() {
     return 
-      "\n{\n" +
+      "\nPayment Account: {\n" +
       "\tid: " + id + ",\n" +
       "\tuser: " + (user == null ? "null" : user.getName()) + ",\n" +
       "\tbank: " + (bank == null ? "null" : bank.getName()) + ",\n" +

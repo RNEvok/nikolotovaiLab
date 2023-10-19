@@ -44,7 +44,7 @@ public class Bank {
   @Override
   public String toString() {
     return 
-      "\n{\n" +
+      "\nBank: {\n" +
       "\tid: " + id + ",\n" +
       "\tname: " + name + ",\n" +
       "\tofficeCount: " + officeCount + ",\n" +
