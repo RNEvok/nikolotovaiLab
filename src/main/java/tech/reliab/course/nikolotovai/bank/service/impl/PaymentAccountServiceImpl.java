@@ -1,7 +1,7 @@
-package reliab.course.nikolotovai.bank.service.impl;
+package tech.reliab.course.nikolotovai.bank.service.impl;
 
-import reliab.course.nikolotovai.bank.entity.PaymentAccount;
-import reliab.course.nikolotovai.bank.service.PaymentAccountService;
+import tech.reliab.course.nikolotovai.bank.entity.PaymentAccount;
+import tech.reliab.course.nikolotovai.bank.service.PaymentAccountService;
 
 public class PaymentAccountServiceImpl implements PaymentAccountService {
   public PaymentAccount create(PaymentAccount paymentAccount) {

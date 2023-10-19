@@ -1,4 +1,4 @@
-package reliab.course.nikolotovai.bank.utils;
+package tech.reliab.course.nikolotovai.bank.utils;
 
 public enum BankAtmStatus {
   WORKING,

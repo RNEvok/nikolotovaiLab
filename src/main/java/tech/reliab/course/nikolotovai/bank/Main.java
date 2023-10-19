@@ -1,29 +1,29 @@
-package reliab.course.nikolotovai.bank;
+package tech.reliab.course.nikolotovai.bank;
 
 import java.time.LocalDate;
 import java.util.Locale;
-import reliab.course.nikolotovai.bank.entity.Bank;
-import reliab.course.nikolotovai.bank.entity.BankAtm;
-import reliab.course.nikolotovai.bank.entity.BankOffice;
-import reliab.course.nikolotovai.bank.entity.CreditAccount;
-import reliab.course.nikolotovai.bank.entity.Employee;
-import reliab.course.nikolotovai.bank.entity.PaymentAccount;
-import reliab.course.nikolotovai.bank.entity.User;
-import reliab.course.nikolotovai.bank.service.AtmService;
-import reliab.course.nikolotovai.bank.service.BankOfficeService;
-import reliab.course.nikolotovai.bank.service.BankService;
-import reliab.course.nikolotovai.bank.service.CreditAccountService;
-import reliab.course.nikolotovai.bank.service.EmployeeService;
-import reliab.course.nikolotovai.bank.service.PaymentAccountService;
-import reliab.course.nikolotovai.bank.service.UserService;
-import reliab.course.nikolotovai.bank.service.impl.AtmServiceImpl;
-import reliab.course.nikolotovai.bank.service.impl.BankOfficeServiceImpl;
-import reliab.course.nikolotovai.bank.service.impl.BankServiceImpl;
-import reliab.course.nikolotovai.bank.service.impl.CreditAccountServiceImpl;
-import reliab.course.nikolotovai.bank.service.impl.EmployeeServiceImpl;
-import reliab.course.nikolotovai.bank.service.impl.PaymentAccountServiceImpl;
-import reliab.course.nikolotovai.bank.service.impl.UserServiceImpl;
-import reliab.course.nikolotovai.bank.utils.BankAtmStatus;
+import tech.reliab.course.nikolotovai.bank.entity.Bank;
+import tech.reliab.course.nikolotovai.bank.entity.BankAtm;
+import tech.reliab.course.nikolotovai.bank.entity.BankOffice;
+import tech.reliab.course.nikolotovai.bank.entity.CreditAccount;
+import tech.reliab.course.nikolotovai.bank.entity.Employee;
+import tech.reliab.course.nikolotovai.bank.entity.PaymentAccount;
+import tech.reliab.course.nikolotovai.bank.entity.User;
+import tech.reliab.course.nikolotovai.bank.service.AtmService;
+import tech.reliab.course.nikolotovai.bank.service.BankOfficeService;
+import tech.reliab.course.nikolotovai.bank.service.BankService;
+import tech.reliab.course.nikolotovai.bank.service.CreditAccountService;
+import tech.reliab.course.nikolotovai.bank.service.EmployeeService;
+import tech.reliab.course.nikolotovai.bank.service.PaymentAccountService;
+import tech.reliab.course.nikolotovai.bank.service.UserService;
+import tech.reliab.course.nikolotovai.bank.service.impl.AtmServiceImpl;
+import tech.reliab.course.nikolotovai.bank.service.impl.BankOfficeServiceImpl;
+import tech.reliab.course.nikolotovai.bank.service.impl.BankServiceImpl;
+import tech.reliab.course.nikolotovai.bank.service.impl.CreditAccountServiceImpl;
+import tech.reliab.course.nikolotovai.bank.service.impl.EmployeeServiceImpl;
+import tech.reliab.course.nikolotovai.bank.service.impl.PaymentAccountServiceImpl;
+import tech.reliab.course.nikolotovai.bank.service.impl.UserServiceImpl;
+import tech.reliab.course.nikolotovai.bank.utils.BankAtmStatus;
 
 
 public class Main {

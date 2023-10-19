@@ -1,4 +1,4 @@
-package reliab.course.nikolotovai.bank.entity;
+package tech.reliab.course.nikolotovai.bank.entity;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

@@ -1,6 +1,6 @@
-package reliab.course.nikolotovai.bank.entity;
+package tech.reliab.course.nikolotovai.bank.entity;
 
-import reliab.course.nikolotovai.bank.utils.BankAtmStatus;
+import tech.reliab.course.nikolotovai.bank.utils.BankAtmStatus;
 
 public class BankAtm {
   private static int currentId;

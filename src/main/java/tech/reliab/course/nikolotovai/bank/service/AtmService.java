@@ -1,6 +1,6 @@
-package reliab.course.nikolotovai.bank.service;
+package tech.reliab.course.nikolotovai.bank.service;
 
-import reliab.course.nikolotovai.bank.entity.BankAtm;
+import tech.reliab.course.nikolotovai.bank.entity.BankAtm;
 
 public interface AtmService {
   BankAtm create(BankAtm bankAtm);

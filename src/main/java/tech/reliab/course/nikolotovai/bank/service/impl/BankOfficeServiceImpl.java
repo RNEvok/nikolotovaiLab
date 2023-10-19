@@ -1,9 +1,9 @@
-package reliab.course.nikolotovai.bank.service.impl;
+package tech.reliab.course.nikolotovai.bank.service.impl;
 
-import reliab.course.nikolotovai.bank.entity.BankAtm;
-import reliab.course.nikolotovai.bank.entity.BankOffice;
-import reliab.course.nikolotovai.bank.entity.Employee;
-import reliab.course.nikolotovai.bank.service.BankOfficeService;
+import tech.reliab.course.nikolotovai.bank.entity.BankAtm;
+import tech.reliab.course.nikolotovai.bank.entity.BankOffice;
+import tech.reliab.course.nikolotovai.bank.entity.Employee;
+import tech.reliab.course.nikolotovai.bank.service.BankOfficeService;
 
 public class BankOfficeServiceImpl implements BankOfficeService {
   public BankOffice create(BankOffice bankOffice) {

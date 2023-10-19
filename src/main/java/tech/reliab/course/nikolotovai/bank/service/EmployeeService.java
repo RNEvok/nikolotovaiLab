@@ -1,7 +1,7 @@
-package reliab.course.nikolotovai.bank.service;
+package tech.reliab.course.nikolotovai.bank.service;
 
-import reliab.course.nikolotovai.bank.entity.BankOffice;
-import reliab.course.nikolotovai.bank.entity.Employee;
+import tech.reliab.course.nikolotovai.bank.entity.BankOffice;
+import tech.reliab.course.nikolotovai.bank.entity.Employee;
 
 public interface EmployeeService {
   Employee create(Employee employee);

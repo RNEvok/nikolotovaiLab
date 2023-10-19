@@ -1,6 +1,6 @@
-package reliab.course.nikolotovai.bank.service;
+package tech.reliab.course.nikolotovai.bank.service;
 
-import reliab.course.nikolotovai.bank.entity.CreditAccount;
+import tech.reliab.course.nikolotovai.bank.entity.CreditAccount;
 
 public interface CreditAccountService {
   CreditAccount create(CreditAccount creditAccount);

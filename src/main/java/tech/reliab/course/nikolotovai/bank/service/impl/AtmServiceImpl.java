@@ -1,7 +1,7 @@
-package reliab.course.nikolotovai.bank.service.impl;
+package tech.reliab.course.nikolotovai.bank.service.impl;
 
-import reliab.course.nikolotovai.bank.entity.BankAtm;
-import reliab.course.nikolotovai.bank.service.AtmService;
+import tech.reliab.course.nikolotovai.bank.entity.BankAtm;
+import tech.reliab.course.nikolotovai.bank.service.AtmService;
 
 public class AtmServiceImpl implements AtmService {
   public BankAtm create(BankAtm bankAtm) {

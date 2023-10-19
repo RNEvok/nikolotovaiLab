@@ -1,11 +1,11 @@
-package reliab.course.nikolotovai.bank.service.impl;
+package tech.reliab.course.nikolotovai.bank.service.impl;
 
 import java.util.Random;
 
-import static reliab.course.nikolotovai.bank.utils.Constants.*;
+import static tech.reliab.course.nikolotovai.bank.utils.Constants.*;
 
-import reliab.course.nikolotovai.bank.entity.User;
-import reliab.course.nikolotovai.bank.service.UserService;
+import tech.reliab.course.nikolotovai.bank.entity.User;
+import tech.reliab.course.nikolotovai.bank.service.UserService;
 
 public class UserServiceImpl implements UserService {
   public int calculateCreditRating(User user) {

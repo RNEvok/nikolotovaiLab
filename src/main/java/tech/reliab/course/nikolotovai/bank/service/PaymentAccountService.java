@@ -1,6 +1,6 @@
-package reliab.course.nikolotovai.bank.service;
+package tech.reliab.course.nikolotovai.bank.service;
 
-import reliab.course.nikolotovai.bank.entity.PaymentAccount;
+import tech.reliab.course.nikolotovai.bank.entity.PaymentAccount;
 
 public interface PaymentAccountService {
   PaymentAccount create(PaymentAccount paymentAccount);

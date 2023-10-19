@@ -1,6 +1,6 @@
-package reliab.course.nikolotovai.bank.service;
+package tech.reliab.course.nikolotovai.bank.service;
 
-import reliab.course.nikolotovai.bank.entity.User;
+import tech.reliab.course.nikolotovai.bank.entity.User;
 
 public interface UserService {
   User create(User user);

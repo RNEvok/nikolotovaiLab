@@ -1,15 +1,15 @@
-package reliab.course.nikolotovai.bank.service.impl;
+package tech.reliab.course.nikolotovai.bank.service.impl;
 
 import java.util.Random;
 
-import static reliab.course.nikolotovai.bank.utils.Constants.*;
+import static tech.reliab.course.nikolotovai.bank.utils.Constants.*;
 
-import reliab.course.nikolotovai.bank.entity.Bank;
-import reliab.course.nikolotovai.bank.entity.BankOffice;
-import reliab.course.nikolotovai.bank.entity.CreditAccount;
-import reliab.course.nikolotovai.bank.entity.Employee;
-import reliab.course.nikolotovai.bank.entity.User;
-import reliab.course.nikolotovai.bank.service.BankService;
+import tech.reliab.course.nikolotovai.bank.entity.Bank;
+import tech.reliab.course.nikolotovai.bank.entity.BankOffice;
+import tech.reliab.course.nikolotovai.bank.entity.CreditAccount;
+import tech.reliab.course.nikolotovai.bank.entity.Employee;
+import tech.reliab.course.nikolotovai.bank.entity.User;
+import tech.reliab.course.nikolotovai.bank.service.BankService;
 
 public class BankServiceImpl implements BankService {
   public double calculateInterestRate(Bank bank) {

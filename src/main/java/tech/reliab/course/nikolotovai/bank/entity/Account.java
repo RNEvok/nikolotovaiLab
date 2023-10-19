@@ -1,4 +1,4 @@
-package reliab.course.nikolotovai.bank.entity;
+package tech.reliab.course.nikolotovai.bank.entity;
 
 public class Account {
   private static int currentId;
