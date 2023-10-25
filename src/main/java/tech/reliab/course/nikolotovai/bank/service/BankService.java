@@ -1,5 +1,7 @@
 package tech.reliab.course.nikolotovai.bank.service;
 
+import java.util.List;
+
 import tech.reliab.course.nikolotovai.bank.entity.Bank;
 import tech.reliab.course.nikolotovai.bank.entity.BankOffice;
 import tech.reliab.course.nikolotovai.bank.entity.CreditAccount;
@@ -8,33 +10,40 @@ import tech.reliab.course.nikolotovai.bank.entity.User;
 
 public interface BankService {
   // Создание банка
-  Bank create(Bank bank);
+  public Bank create(Bank bank);
+  public void pringBankData(int id);
+  // Получение банка по id
+  public Bank getBankById(int id);
+  // Удаление банка по id
+  public boolean deleteBankById(int id);
+  // Получение всех банков
+  public List<Bank> getAllBanks();
   // Добавление офиса
-  boolean addOffice(Bank bank, BankOffice bankOffice);
+  public boolean addOffice(int bankId, BankOffice bankOffice);
   // Удаление офиса
-  boolean removeOffice(Bank bank, BankOffice bankOffice);
+  public boolean removeOffice(int bankId, BankOffice bankOffice);
   // Добавление сотрудника
-  boolean addEmployee(Bank bank, Employee employee);
+  public boolean addEmployee(Bank bank, Employee employee);
   // Удаление сотрудника
-  boolean removeEmployee(Bank bank, Employee employee);
+  public boolean removeEmployee(Bank bank, Employee employee);
   // Добавление клиента
-  boolean addClient(Bank bank, User user);
+  public boolean addClient(Bank bank, User user);
   // Удаление клиента
-  boolean removeClient(Bank bank, User user);
+  public boolean removeClient(Bank bank, User user);
   // Вычисление процентной ставки банка (чем выше рейтинг, тем ниже ставка).
-  double calculateInterestRate(Bank bank);
+  public double calculateInterestRate(Bank bank);
   /*
   Внести сумму денег sum в банк bank.
   */
-  boolean depositMoney(Bank bank, double amount);
+  public boolean depositMoney(int bankId, double amount);
   /*
   Вывести деньги sum из банка bank.
   */
-  boolean withdrawMoney(Bank bank, double amount);
+  public boolean withdrawMoney(Bank bank, double amount);
   /*
   Оформление заявки на кредит.
   В операции может быть отказано, если в банке недостаточно денег / сотрудник employee не выдает кредиты /
   доход клиента меньше, чем ежемесячная выплата по кредиту
   */
-  boolean approveCredit(Bank bank, CreditAccount account, Employee employee);
+  public boolean approveCredit(Bank bank, CreditAccount account, Employee employee);
 }

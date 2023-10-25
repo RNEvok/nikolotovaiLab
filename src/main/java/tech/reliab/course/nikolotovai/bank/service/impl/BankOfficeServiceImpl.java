@@ -1,11 +1,16 @@
 package tech.reliab.course.nikolotovai.bank.service.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import tech.reliab.course.nikolotovai.bank.entity.BankAtm;
 import tech.reliab.course.nikolotovai.bank.entity.BankOffice;
 import tech.reliab.course.nikolotovai.bank.entity.Employee;
 import tech.reliab.course.nikolotovai.bank.service.BankOfficeService;
 
 public class BankOfficeServiceImpl implements BankOfficeService {
+  // private final Map<Integer, BankOffice> bankOfficesTable = new HashMap<>();
+
   public BankOffice create(BankOffice bankOffice) {
     if (bankOffice == null) {
       return null;
