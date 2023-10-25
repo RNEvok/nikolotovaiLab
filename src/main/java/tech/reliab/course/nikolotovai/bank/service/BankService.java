@@ -9,13 +9,14 @@ import tech.reliab.course.nikolotovai.bank.entity.Employee;
 import tech.reliab.course.nikolotovai.bank.entity.User;
 
 public interface BankService {
+  public void setBankOfficeService(BankOfficeService bankOfficeService);
+  public void setUserService(UserService userService);
   // Создание банка
   public Bank create(Bank bank);
-  public void pringBankData(int id);
+  // Вывод всей информации о банке
+  public void printBankData(int id);
   // Получение банка по id
   public Bank getBankById(int id);
-  // Удаление банка по id
-  public boolean deleteBankById(int id);
   // Получение всех банков
   public List<Bank> getAllBanks();
   // Добавление офиса
@@ -27,7 +28,7 @@ public interface BankService {
   // Удаление сотрудника
   public boolean removeEmployee(Bank bank, Employee employee);
   // Добавление клиента
-  public boolean addClient(Bank bank, User user);
+  public boolean addClient(int bankId, User user);
   // Удаление клиента
   public boolean removeClient(Bank bank, User user);
   // Вычисление процентной ставки банка (чем выше рейтинг, тем ниже ставка).

@@ -13,11 +13,24 @@ import tech.reliab.course.nikolotovai.bank.entity.BankOffice;
 import tech.reliab.course.nikolotovai.bank.entity.CreditAccount;
 import tech.reliab.course.nikolotovai.bank.entity.Employee;
 import tech.reliab.course.nikolotovai.bank.entity.User;
+import tech.reliab.course.nikolotovai.bank.service.BankOfficeService;
 import tech.reliab.course.nikolotovai.bank.service.BankService;
+import tech.reliab.course.nikolotovai.bank.service.UserService;
 
 public class BankServiceImpl implements BankService {
   private final Map<Integer, Bank> banksTable = new HashMap<>();
   private final Map<Integer, List<BankOffice>> officesByBankIdTable = new HashMap<>();
+  private final Map<Integer, List<User>> usersByBankIdTable = new HashMap<>();
+  private BankOfficeService bankOfficeService;
+  private UserService userService;
+
+  public void setBankOfficeService(BankOfficeService bankOfficeService) {
+    this.bankOfficeService = bankOfficeService;
+  }
+
+  public void setUserService(UserService userService) {
+    this.userService = userService;
+  }
 
   public double calculateInterestRate(Bank bank) {
     if (bank != null) {
@@ -55,6 +68,8 @@ public class BankServiceImpl implements BankService {
 
     if (createdBank != null) {
       banksTable.put(createdBank.getId(), createdBank);		
+      officesByBankIdTable.put(createdBank.getId(), new ArrayList<>());
+      usersByBankIdTable.put(createdBank.getId(), new ArrayList<>());
     }
 
     return createdBank;
@@ -70,10 +85,22 @@ public class BankServiceImpl implements BankService {
 
     System.out.println("=========================");
     System.out.println(bank);
-    System.out.println("Офисы:");
-    officesByBankIdTable.get(id).forEach((BankOffice office) -> {
-      System.out.println(office);
-    });
+    List<BankOffice> offices = officesByBankIdTable.get(id);
+    if (offices != null) {
+      System.out.println("Офисы:");
+      offices.forEach((BankOffice office) -> {
+        bankOfficeService.printBankOfficeData(office.getId());
+        // System.out.println(office);
+      });
+    }
+
+    List<User> users = usersByBankIdTable.get(id);
+    if (users != null) {
+      System.out.println("Клиенты:");
+      users.forEach((User user) -> {
+        userService.printUserData(user.getId());
+      });
+    }
     System.out.println("=========================");
   }
 
@@ -85,23 +112,6 @@ public class BankServiceImpl implements BankService {
 		}
 
 		return bank;
-  }
-
-  public boolean deleteBankById(int id) {
-    return true;
-    // BankOfficeService bankOfficeService = BankOfficeServiceImpl.getInstance();
-		// if (banks.containsKey(bankId)) {
-		// 	// Удаляем все офисы
-		// 	List<BankOffice> bankOffices = bankOfficeService.getAllBankOfficeByIdBank(bankId);
-		// 	for (BankOffice bankOffice: bankOffices) {
-		// 		if (!deleteOffice(bankId, bankOffice.getId())) {
-		// 			System.out.println("Не удалось удалить банк с id = " + bankId);
-		// 			return false;
-		// 		}
-		// 	}
-		// 	return banks.remove(bankId) != null;
-		// }
-		// return false;
   }
 
   public List<Bank> getAllBanks() {
@@ -168,10 +178,14 @@ public class BankServiceImpl implements BankService {
     return false;
   }
 
-  public boolean addClient(Bank bank, User user) {
+  public boolean addClient(int bankId, User user) {
+    Bank bank = getBankById(bankId);
+
     if (bank != null && user != null) {
       user.setBank(bank);
       bank.setUserCount(bank.getUserCount() + 1);
+      List<User> users = usersByBankIdTable.get(bankId);
+      users.add(user);
       return true;
     }
     return false;

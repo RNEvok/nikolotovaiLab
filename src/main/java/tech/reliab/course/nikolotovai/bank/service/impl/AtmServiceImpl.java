@@ -1,9 +1,22 @@
 package tech.reliab.course.nikolotovai.bank.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import tech.reliab.course.nikolotovai.bank.entity.BankAtm;
 import tech.reliab.course.nikolotovai.bank.service.AtmService;
+import tech.reliab.course.nikolotovai.bank.service.BankOfficeService;
 
 public class AtmServiceImpl implements AtmService {
+  private final Map<Integer, BankAtm> atmsTable = new HashMap<>();
+  private final BankOfficeService bankOfficeService;
+
+  public AtmServiceImpl(BankOfficeService bankOfficeService) {
+    this.bankOfficeService = bankOfficeService;
+  }
+
   public BankAtm create(BankAtm bankAtm) {
     if (bankAtm == null) {
       return null;
@@ -29,7 +42,26 @@ public class AtmServiceImpl implements AtmService {
       return null;
     }
 
-    return new BankAtm(bankAtm);
+    BankAtm createdBankAtm =  new BankAtm(bankAtm);
+
+    atmsTable.put(createdBankAtm.getId(), createdBankAtm);		
+    bankOfficeService.installAtm(createdBankAtm.getBankOffice().getId(), createdBankAtm);
+
+    return createdBankAtm;
+  }
+
+  public BankAtm getBankAtmById(int id) {
+    BankAtm bankAtm = atmsTable.get(id);
+
+		if (bankAtm == null) {
+			System.out.println("Банкомат с id: " + id + " не был найден.");
+		}
+
+		return bankAtm;
+  }
+
+  public List<BankAtm> getAllBankAtms() {
+    return new ArrayList<BankAtm>(atmsTable.values());
   }
 
   public boolean depositMoney(BankAtm bankAtm, double amount) {

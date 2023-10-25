@@ -1,15 +1,25 @@
 package tech.reliab.course.nikolotovai.bank.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import tech.reliab.course.nikolotovai.bank.entity.BankAtm;
 import tech.reliab.course.nikolotovai.bank.entity.BankOffice;
 import tech.reliab.course.nikolotovai.bank.entity.Employee;
 import tech.reliab.course.nikolotovai.bank.service.BankOfficeService;
+import tech.reliab.course.nikolotovai.bank.service.BankService;
 
 public class BankOfficeServiceImpl implements BankOfficeService {
-  // private final Map<Integer, BankOffice> bankOfficesTable = new HashMap<>();
+  private final Map<Integer, BankOffice> bankOfficesTable = new HashMap<>();
+  private final Map<Integer, List<Employee>> employeesByOfficeIdTable = new HashMap<>();
+  private final Map<Integer, List<BankAtm>> atmsByOfficeIdTable = new HashMap<>();
+  private final BankService bankService;
+
+  public BankOfficeServiceImpl(BankService bankService) {
+    this.bankService = bankService;
+  }
 
   public BankOffice create(BankOffice bankOffice) {
     if (bankOffice == null) {
@@ -36,10 +46,61 @@ public class BankOfficeServiceImpl implements BankOfficeService {
       return null;
     }
 
+    bankOfficesTable.put(bankOffice.getId(), bankOffice);
+    employeesByOfficeIdTable.put(bankOffice.getId(), new ArrayList<>());
+    atmsByOfficeIdTable.put(bankOffice.getId(), new ArrayList<>());
+    bankService.addOffice(bankOffice.getBank().getId(), bankOffice);
+
     return new BankOffice(bankOffice);
   }
 
-  public boolean installAtm(BankOffice bankOffice, BankAtm bankAtm) {
+  public void printBankOfficeData(int id) {
+    BankOffice bankOffice = bankOfficesTable.get(id);
+
+    if (bankOffice == null) {
+      System.out.println("Офис с id: " + id + " не был найден.");
+      return;
+    }
+
+    System.out.println(bankOffice);
+    List<Employee> employees = employeesByOfficeIdTable.get(id);
+    if (employees != null) {
+      System.out.println("Сотрудники:");
+      employees.forEach((Employee employee) -> {
+        System.out.println(employee);
+      });
+    }
+
+    List<BankAtm> atms = atmsByOfficeIdTable.get(id);
+    if (atms != null) {
+      System.out.println("Банкоматы:");
+      atms.forEach((BankAtm atm) -> {
+        System.out.println(atm);
+      });
+    }
+  }
+
+  public BankOffice getBankOfficeById(int id) {
+    BankOffice office = bankOfficesTable.get(id);
+
+		if (office == null) {
+			System.out.println("Офис с id: " + id + " не был найден.");
+		}
+
+		return office;
+  }
+
+  public List<BankOffice> getAllOffices() {
+    return new ArrayList<BankOffice>(bankOfficesTable.values());
+  }
+
+  public List<Employee> getAllEmployeesByOfficeId(int officeId) {
+    return employeesByOfficeIdTable.get(officeId);
+  }
+
+  public boolean installAtm(int bankOfficeId, BankAtm bankAtm) {
+    BankOffice bankOffice = getBankOfficeById(bankOfficeId);
+
     if (bankOffice != null && bankAtm != null) {
       if (!bankOffice.getIsAtmPlaceable()) {
         System.out.println("Error: cannot install atm at office " + bankOffice.getId());
@@ -47,10 +108,12 @@ public class BankOfficeServiceImpl implements BankOfficeService {
       }
 
       bankOffice.setAtmCount(bankOffice.getAtmCount() + 1);
+      bankOffice.getBank().setAtmCount(bankOffice.getBank().getAtmCount() + 1);
       bankAtm.setBankOffice(bankOffice);
       bankAtm.setAddress(bankOffice.getAddress());
-      // Добавить добавление atm в банк
-
+      bankAtm.setBank(bankOffice.getBank());
+      List<BankAtm> officeAtms = atmsByOfficeIdTable.get(bankOffice.getId());
+      officeAtms.add(bankAtm);
       return true;
     }
     return false;
@@ -120,12 +183,14 @@ public class BankOfficeServiceImpl implements BankOfficeService {
     return true;
   }
 
-  public boolean addEmployee(BankOffice bankOffice, Employee employee) {
-    if (bankOffice != null && employee != null) {
-      employee.setBankOffice(bankOffice);;
-      employee.setBank(bankOffice.getBank());
-      // Добавить добавление работника в банк
+  public boolean addEmployee(int bankOfficeId, Employee employee) {
+    BankOffice bankOffice = getBankOfficeById(bankOfficeId);
 
+    if (bankOffice != null && employee != null) {
+      employee.setBankOffice(bankOffice);
+      employee.setBank(bankOffice.getBank());
+      List<Employee> officeEmployees = employeesByOfficeIdTable.get(bankOffice.getId());
+      officeEmployees.add(employee);
       return true;
     }
     return false;
