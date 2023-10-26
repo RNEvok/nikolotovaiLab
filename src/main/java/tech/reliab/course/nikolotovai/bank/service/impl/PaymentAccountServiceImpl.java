@@ -1,9 +1,22 @@
 package tech.reliab.course.nikolotovai.bank.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import tech.reliab.course.nikolotovai.bank.entity.PaymentAccount;
 import tech.reliab.course.nikolotovai.bank.service.PaymentAccountService;
+import tech.reliab.course.nikolotovai.bank.service.UserService;
 
 public class PaymentAccountServiceImpl implements PaymentAccountService {
+  private final Map<Integer, PaymentAccount> paymentAccountsTable = new HashMap<>();
+  private final UserService userService;
+
+  public PaymentAccountServiceImpl(UserService userService) {
+    this.userService = userService;
+  }
+
   public PaymentAccount create(PaymentAccount paymentAccount) {
     if (paymentAccount == null) {
       return null;
@@ -19,7 +32,36 @@ public class PaymentAccountServiceImpl implements PaymentAccountService {
       return null;
     }
 
-    return new PaymentAccount(paymentAccount);
+    PaymentAccount createdPaymentAccount = new PaymentAccount(paymentAccount);
+    paymentAccountsTable.put(createdPaymentAccount.getId(), createdPaymentAccount);
+    userService.addPaymentAccount(createdPaymentAccount.getUser().getId(), createdPaymentAccount);
+
+    return createdPaymentAccount;
+  }
+
+  public void printPaymentData(int id) {
+    PaymentAccount paymentAccount = paymentAccountsTable.get(id);
+
+    if (paymentAccount == null) {
+      System.out.println("Платежный счет с id: " + id + " не был найден.");
+      return;
+    }
+
+    System.out.println(paymentAccount);
+  }
+
+  public PaymentAccount getPaymentAccountById(int id) {
+    PaymentAccount paymentAccount = paymentAccountsTable.get(id);
+
+		if (paymentAccount == null) {
+			System.out.println("Платежный счет c id: " + id + " не был найден.");
+		}
+
+		return paymentAccount;
+  }
+
+  public List<PaymentAccount> getAllPaymentAccounts() {
+    return new ArrayList<PaymentAccount>(paymentAccountsTable.values());
   }
 
   public boolean depositMoney(PaymentAccount account, double amount) {

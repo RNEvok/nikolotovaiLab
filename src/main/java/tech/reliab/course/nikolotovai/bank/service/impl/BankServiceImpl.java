@@ -98,7 +98,7 @@ public class BankServiceImpl implements BankService {
     if (users != null) {
       System.out.println("Клиенты:");
       users.forEach((User user) -> {
-        userService.printUserData(user.getId());
+        userService.printUserData(user.getId(), false);
       });
     }
     System.out.println("=========================");
@@ -151,6 +151,17 @@ public class BankServiceImpl implements BankService {
       return true;
     }
     return false;
+  }
+
+  public List<BankOffice> getAllOfficesByBankId(int bankId) {
+    Bank bank = getBankById(bankId);
+
+    if (bank != null) {
+      List<BankOffice> bankOffices = officesByBankIdTable.get(bankId);
+      
+      return bankOffices;
+    }
+    return new ArrayList<>();
   }
 
   public boolean addEmployee(Bank bank, Employee employee) {

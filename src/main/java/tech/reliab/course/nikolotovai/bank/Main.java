@@ -11,23 +11,23 @@ import static tech.reliab.course.nikolotovai.bank.utils.Constants.*;
 import tech.reliab.course.nikolotovai.bank.entity.Bank;
 import tech.reliab.course.nikolotovai.bank.entity.BankAtm;
 import tech.reliab.course.nikolotovai.bank.entity.BankOffice;
-// import tech.reliab.course.nikolotovai.bank.entity.CreditAccount;
+import tech.reliab.course.nikolotovai.bank.entity.CreditAccount;
 import tech.reliab.course.nikolotovai.bank.entity.Employee;
-// import tech.reliab.course.nikolotovai.bank.entity.PaymentAccount;
+import tech.reliab.course.nikolotovai.bank.entity.PaymentAccount;
 import tech.reliab.course.nikolotovai.bank.entity.User;
 import tech.reliab.course.nikolotovai.bank.service.AtmService;
 import tech.reliab.course.nikolotovai.bank.service.BankOfficeService;
 import tech.reliab.course.nikolotovai.bank.service.BankService;
-// import tech.reliab.course.nikolotovai.bank.service.CreditAccountService;
+import tech.reliab.course.nikolotovai.bank.service.CreditAccountService;
 import tech.reliab.course.nikolotovai.bank.service.EmployeeService;
-// import tech.reliab.course.nikolotovai.bank.service.PaymentAccountService;
+import tech.reliab.course.nikolotovai.bank.service.PaymentAccountService;
 import tech.reliab.course.nikolotovai.bank.service.UserService;
 import tech.reliab.course.nikolotovai.bank.service.impl.AtmServiceImpl;
 import tech.reliab.course.nikolotovai.bank.service.impl.BankOfficeServiceImpl;
 import tech.reliab.course.nikolotovai.bank.service.impl.BankServiceImpl;
-// import tech.reliab.course.nikolotovai.bank.service.impl.CreditAccountServiceImpl;
+import tech.reliab.course.nikolotovai.bank.service.impl.CreditAccountServiceImpl;
 import tech.reliab.course.nikolotovai.bank.service.impl.EmployeeServiceImpl;
-// import tech.reliab.course.nikolotovai.bank.service.impl.PaymentAccountServiceImpl;
+import tech.reliab.course.nikolotovai.bank.service.impl.PaymentAccountServiceImpl;
 import tech.reliab.course.nikolotovai.bank.service.impl.UserServiceImpl;
 import tech.reliab.course.nikolotovai.bank.utils.BankAtmStatus;
 import tech.reliab.course.nikolotovai.bank.utils.Constants;
@@ -48,11 +48,15 @@ public class Main {
     AtmService atmService = new AtmServiceImpl(bankOfficeService);
     UserService userService = new UserServiceImpl(bankService);
     bankService.setUserService(userService);
-    // PaymentAccountService paymentAccountService = new PaymentAccountServiceImpl();
-    // CreditAccountService creditAccountService = new CreditAccountServiceImpl();
+    PaymentAccountService paymentAccountService = new PaymentAccountServiceImpl(userService);
+    CreditAccountService creditAccountService = new CreditAccountServiceImpl(userService);
 
     // Создание банков
     bankService.create(new Bank("Nikolotov Bank"));
+    bankService.create(new Bank("Alpha Bank"));
+    bankService.create(new Bank("Tinkoff Bank"));
+    bankService.create(new Bank("Bank of America"));
+    bankService.create(new Bank("Commerzbank"));
     // System.out.println(bank);
 
     // Создание офисов в каждом банке
@@ -125,10 +129,41 @@ public class Main {
       }
     }
 
-    // PaymentAccount paymentAccount = paymentAccountService.create(new PaymentAccount(user, bank, 500));
-    // // System.out.println(paymentAccount);
+    // Добавление платежных счетов каждому клиенту
+    List<User> users = userService.getAllUsers();
+    for (User user : users) {
+      for (int i = 1; i <= 2; i++) {
+        paymentAccountService.create(new PaymentAccount(
+          user, 
+          user.getBank(), 
+          random.nextDouble() * 10000
+        ));
+      }
+    }
 
-    // CreditAccount creditAccount = creditAccountService.create(new CreditAccount(user, bank, LocalDate.of(2022, 1, 1), LocalDate.of(2025, 1, 1), 36, 3600, 3600, 100, 5, employee, paymentAccount));
+    // Добавление кредитных счетов каждому клиенту
+    for (User user : users) {
+      for (int i = 1; i <= 2; i++) {
+        List<BankOffice> bankOffices = bankService.getAllOfficesByBankId(user.getBank().getId());
+        BankOffice randomOffice = bankOffices.get(random.nextInt(bankOffices.size()));
+        List<Employee> officeEmployees = bankOfficeService.getAllEmployeesByOfficeId(randomOffice.getId());
+        Employee randomEmployee = officeEmployees.get(random.nextInt(officeEmployees.size()));
+
+        creditAccountService.create(new CreditAccount(
+          user, 
+          user.getBank(), 
+          LocalDate.of(2023, 10, 1), 
+          LocalDate.of(2026, 10, 1), 
+          36, 
+          3600, 
+          3600, 
+          100, 
+          user.getBank().getInterestRate(), 
+          randomEmployee, 
+          userService.getAllPaymentAccountsByUserId(user.getId()).get(random.nextInt(userService.getAllPaymentAccountsByUserId(user.getId()).size()))
+        ));
+      }
+    }
 
     System.out.println("\nWelcome to lab2.");
     System.out.println("Number of banks in system: " + bankService.getAllBanks().size());
@@ -151,6 +186,9 @@ public class Main {
         bankService.printBankData(bankIdToPrint);
       } else if (action.equals("u")) {
         System.out.println("Enter user id:");
+        int userIdToPrint = scanner.nextInt();
+        scanner.nextLine();
+        userService.printUserData(userIdToPrint, true);
       } else if (action.equals("q")) {
         break;
       } else {

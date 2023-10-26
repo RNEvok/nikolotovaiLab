@@ -8,12 +8,16 @@ import java.util.Random;
 
 import static tech.reliab.course.nikolotovai.bank.utils.Constants.*;
 
+import tech.reliab.course.nikolotovai.bank.entity.CreditAccount;
+import tech.reliab.course.nikolotovai.bank.entity.PaymentAccount;
 import tech.reliab.course.nikolotovai.bank.entity.User;
 import tech.reliab.course.nikolotovai.bank.service.BankService;
 import tech.reliab.course.nikolotovai.bank.service.UserService;
 
 public class UserServiceImpl implements UserService {
   private final Map<Integer, User> usersTable = new HashMap<>();
+  private final Map<Integer, List<PaymentAccount>> paymentAccountsByUserIdTable = new HashMap<>();
+  private final Map<Integer, List<CreditAccount>> creditAccountsByUserIdTable = new HashMap<>();
   private final BankService bankService;
 
   public UserServiceImpl(BankService bankService) {
@@ -48,13 +52,16 @@ public class UserServiceImpl implements UserService {
     final double monthlyIncome = random.nextDouble() * MAX_USER_MONTHLY_INCOME;
     createdUser.setMonthlyIncome(monthlyIncome);
     calculateCreditRating(createdUser);
+
     usersTable.put(createdUser.getId(), createdUser);
+    paymentAccountsByUserIdTable.put(createdUser.getId(), new ArrayList<>());
+    creditAccountsByUserIdTable.put(createdUser.getId(), new ArrayList<>());
     bankService.addClient(user.getBank().getId(), user);
 
     return createdUser;
   }
 
-  public void printUserData(int id) {
+  public void printUserData(int id, boolean withAccounts) {
     User user = usersTable.get(id);
 
     if (user == null) {
@@ -63,6 +70,24 @@ public class UserServiceImpl implements UserService {
     }
 
     System.out.println(user);
+
+    if (withAccounts) {
+      List<PaymentAccount> paymentAccounts = paymentAccountsByUserIdTable.get(id);
+      if (paymentAccounts != null) {
+        System.out.println("Платежные счета:");
+        paymentAccounts.forEach((PaymentAccount paymentAccount) -> {
+          System.out.println(paymentAccount);
+        });
+      }
+
+      List<CreditAccount> creditAccounts = creditAccountsByUserIdTable.get(id);
+      if (creditAccounts != null) {
+        System.out.println("Кредитные счета:");
+        creditAccounts.forEach((CreditAccount creditAccount) -> {
+          System.out.println(creditAccount);
+        });
+      }
+    }
   }
 
   public User getUserById(int id) {
@@ -77,5 +102,32 @@ public class UserServiceImpl implements UserService {
 
   public List<User> getAllUsers() {
     return new ArrayList<User>(usersTable.values());
+  }
+
+  public boolean addPaymentAccount(int userId, PaymentAccount paymentAccount) {
+    User user = usersTable.get(userId);
+    if (user != null) {
+      List<PaymentAccount> userPaymentAccounts = paymentAccountsByUserIdTable.get(userId);
+      userPaymentAccounts.add(paymentAccount);
+      return true;
+    }
+
+    return false;
+  }
+
+  public boolean addCreditAccount(int userId, CreditAccount creditAccount) {
+    User user = usersTable.get(userId);
+    if (user != null) {
+      List<CreditAccount> userCreditAccounts = creditAccountsByUserIdTable.get(userId);
+      userCreditAccounts.add(creditAccount);
+      return true;
+    }
+
+    return false;
+  }
+
+  public List<PaymentAccount> getAllPaymentAccountsByUserId(int userId) {
+    List<PaymentAccount> userPaymentAccounts = paymentAccountsByUserIdTable.get(userId);
+    return userPaymentAccounts;
   }
 }

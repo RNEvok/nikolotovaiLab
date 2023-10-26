@@ -23,6 +23,8 @@ public interface BankService {
   public boolean addOffice(int bankId, BankOffice bankOffice);
   // Удаление офиса
   public boolean removeOffice(int bankId, BankOffice bankOffice);
+  // Получение всех офисов банка
+  public List<BankOffice> getAllOfficesByBankId(int bankId);
   // Добавление сотрудника
   public boolean addEmployee(Bank bank, Employee employee);
   // Удаление сотрудника
