@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
     usersTable.put(createdUser.getId(), createdUser);
     paymentAccountsByUserIdTable.put(createdUser.getId(), new ArrayList<>());
     creditAccountsByUserIdTable.put(createdUser.getId(), new ArrayList<>());
-    bankService.addClient(user.getBank().getId(), user);
+    bankService.addClient(user.getBank().getId(), createdUser);
 
     return createdUser;
   }
