@@ -57,7 +57,7 @@ public class CreditAccountServiceImpl implements CreditAccountService {
     CreditAccount creditAccount = creditAccountsTable.get(id);
 
 		if (creditAccount == null) {
-			System.out.println("Кредитный счет c id: " + id + " не был найден.");
+			System.out.println("Credit account with id: " + id + " was not found.");
 		}
 
 		return creditAccount;

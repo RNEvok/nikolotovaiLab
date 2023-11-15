@@ -54,7 +54,7 @@ public class AtmServiceImpl implements AtmService {
     BankAtm bankAtm = atmsTable.get(id);
 
 		if (bankAtm == null) {
-			System.out.println("Банкомат с id: " + id + " не был найден.");
+			System.out.println("ATM with id: " + id + " was not found.");
 		}
 
 		return bankAtm;

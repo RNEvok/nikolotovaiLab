@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
     User user = usersTable.get(id);
 
     if (user == null) {
-      System.out.println("Клиент с id: " + id + " не был найден.");
+      System.out.println("User with id: " + id + " was not found.");
       return;
     }
 
@@ -74,7 +74,7 @@ public class UserServiceImpl implements UserService {
     if (withAccounts) {
       List<PaymentAccount> paymentAccounts = paymentAccountsByUserIdTable.get(id);
       if (paymentAccounts != null) {
-        System.out.println("Платежные счета:");
+        System.out.println("Payment accounts:");
         paymentAccounts.forEach((PaymentAccount paymentAccount) -> {
           System.out.println(paymentAccount);
         });
@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService {
 
       List<CreditAccount> creditAccounts = creditAccountsByUserIdTable.get(id);
       if (creditAccounts != null) {
-        System.out.println("Кредитные счета:");
+        System.out.println("Credit accounts:");
         creditAccounts.forEach((CreditAccount creditAccount) -> {
           System.out.println(creditAccount);
         });
@@ -94,7 +94,7 @@ public class UserServiceImpl implements UserService {
     User user = usersTable.get(id);
 
 		if (user == null) {
-			System.out.println("Клиент с id: " + id + " не был найден.");
+			System.out.println("User with id: " + id + " was not found.");
 		}
 
 		return user;

@@ -43,7 +43,7 @@ public class PaymentAccountServiceImpl implements PaymentAccountService {
     PaymentAccount paymentAccount = paymentAccountsTable.get(id);
 
     if (paymentAccount == null) {
-      System.out.println("Платежный счет с id: " + id + " не был найден.");
+      System.out.println("Payment account with id: " + id + " was not found.");
       return;
     }
 
@@ -54,7 +54,7 @@ public class PaymentAccountServiceImpl implements PaymentAccountService {
     PaymentAccount paymentAccount = paymentAccountsTable.get(id);
 
 		if (paymentAccount == null) {
-			System.out.println("Платежный счет c id: " + id + " не был найден.");
+			System.out.println("Payment account with id: " + id + " was not found.");
 		}
 
 		return paymentAccount;

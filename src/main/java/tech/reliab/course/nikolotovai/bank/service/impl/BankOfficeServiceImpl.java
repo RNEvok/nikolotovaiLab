@@ -58,14 +58,14 @@ public class BankOfficeServiceImpl implements BankOfficeService {
     BankOffice bankOffice = bankOfficesTable.get(id);
 
     if (bankOffice == null) {
-      System.out.println("Офис с id: " + id + " не был найден.");
+      System.out.println("Bank office with id: " + id + " was not found.");
       return;
     }
 
     System.out.println(bankOffice);
     List<Employee> employees = employeesByOfficeIdTable.get(id);
     if (employees != null) {
-      System.out.println("Сотрудники:");
+      System.out.println("Employees:");
       employees.forEach((Employee employee) -> {
         System.out.println(employee);
       });
@@ -73,7 +73,7 @@ public class BankOfficeServiceImpl implements BankOfficeService {
 
     List<BankAtm> atms = atmsByOfficeIdTable.get(id);
     if (atms != null) {
-      System.out.println("Банкоматы:");
+      System.out.println("ATMs:");
       atms.forEach((BankAtm atm) -> {
         System.out.println(atm);
       });
@@ -84,7 +84,7 @@ public class BankOfficeServiceImpl implements BankOfficeService {
     BankOffice office = bankOfficesTable.get(id);
 
 		if (office == null) {
-			System.out.println("Офис с id: " + id + " не был найден.");
+			System.out.println("Bank office with id: " + id + " was not found.");
 		}
 
 		return office;

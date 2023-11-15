@@ -79,7 +79,7 @@ public class BankServiceImpl implements BankService {
     Bank bank = banksTable.get(id);
 
     if (bank == null) {
-      System.out.println("Банк с id: " + id + " не был найден.");
+      System.out.println("Bank with id: " + id + " was not found.");
       return;
     }
 
@@ -87,7 +87,7 @@ public class BankServiceImpl implements BankService {
     System.out.println(bank);
     List<BankOffice> offices = officesByBankIdTable.get(id);
     if (offices != null) {
-      System.out.println("Офисы:");
+      System.out.println("Bank offices:");
       offices.forEach((BankOffice office) -> {
         bankOfficeService.printBankOfficeData(office.getId());
         // System.out.println(office);
@@ -96,7 +96,7 @@ public class BankServiceImpl implements BankService {
 
     List<User> users = usersByBankIdTable.get(id);
     if (users != null) {
-      System.out.println("Клиенты:");
+      System.out.println("Users:");
       users.forEach((User user) -> {
         userService.printUserData(user.getId(), false);
       });
@@ -108,7 +108,7 @@ public class BankServiceImpl implements BankService {
     Bank bank = banksTable.get(id);
 
 		if (bank == null) {
-			System.out.println("Банк с id: " + id + " не был найден.");
+			System.out.println("Bank with id: " + id + " was not found.");
 		}
 
 		return bank;

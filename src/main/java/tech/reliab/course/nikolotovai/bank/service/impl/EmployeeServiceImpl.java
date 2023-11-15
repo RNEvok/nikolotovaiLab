@@ -50,7 +50,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     Employee employee = employeesTable.get(id);
 
 		if (employee == null) {
-			System.out.println("Сотрудник с id: " + id + " не был найден.");
+			System.out.println("Employee with id: " + id + " was not found.");
 		}
 
 		return employee;
