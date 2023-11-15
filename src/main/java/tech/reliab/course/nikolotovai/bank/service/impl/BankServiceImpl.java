@@ -122,8 +122,6 @@ public class BankServiceImpl implements BankService {
     Bank bank = getBankById(bankId);
 
     if (bank != null && bankOffice != null) {
-      bank.setOfficeCount((short)(bank.getOfficeCount() + 1));
-      bank.setAtmCount(bank.getAtmCount() + bankOffice.getAtmCount());
       depositMoney(bankId, bankOffice.getTotalMoney());
       List<BankOffice> bankOffices = officesByBankIdTable.get(bankId);
       bankOffices.add(bankOffice);
@@ -137,15 +135,13 @@ public class BankServiceImpl implements BankService {
     int officeIndex = officesByBankIdTable.get(bankId).indexOf(bankOffice);
 
     if (bank != null && officeIndex >= 0) {
-      final short newOfficeCount = (short)(bank.getOfficeCount() - 1);
+      // final short newOfficeCount = (short)(bank.getOfficeCount() - 1);
 
-      if (newOfficeCount < 0) {
-        System.out.println("Error: cannot remove office, bank has no offices");
-        return false;
-      }
+      // if (newOfficeCount < 0) {
+      //   System.out.println("Error: cannot remove office, bank has no offices");
+      //   return false;
+      // }
 
-      bank.setOfficeCount(newOfficeCount);
-      bank.setAtmCount(bank.getAtmCount() - officesByBankIdTable.get(bankId).get(officeIndex).getAtmCount());
       officesByBankIdTable.get(bankId).remove(officeIndex);
 
       return true;

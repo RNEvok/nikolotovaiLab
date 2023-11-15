@@ -107,8 +107,6 @@ public class BankOfficeServiceImpl implements BankOfficeService {
         return false;
       }
 
-      bankOffice.setAtmCount(bankOffice.getAtmCount() + 1);
-      bankOffice.getBank().setAtmCount(bankOffice.getBank().getAtmCount() + 1);
       bankAtm.setBankOffice(bankOffice);
       bankAtm.setAddress(bankOffice.getAddress());
       bankAtm.setBank(bankOffice.getBank());
@@ -122,13 +120,12 @@ public class BankOfficeServiceImpl implements BankOfficeService {
   public boolean removeAtm(BankOffice bankOffice, BankAtm bankAtm) {
     if (bankOffice != null && bankAtm != null) {
       // Добавить поиск банкомата в офисе / банка и удаление оттуда
-      final int newAtmCountOffice = bankOffice.getAtmCount() - 1;
-      if (newAtmCountOffice < 0) {
-        System.out.println("Error: cannot remove ATM, office has no ATMs");
-        return false;
-      }
+      // final int newAtmCountOffice = bankOffice.getAtmCount() - 1;
+      // if (newAtmCountOffice < 0) {
+      //   System.out.println("Error: cannot remove ATM, office has no ATMs");
+      //   return false;
+      // }
 
-      bankOffice.setAtmCount(newAtmCountOffice);
       return true;
     }
     return false;

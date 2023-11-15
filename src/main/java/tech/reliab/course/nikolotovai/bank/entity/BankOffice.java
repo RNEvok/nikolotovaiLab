@@ -8,7 +8,6 @@ public class BankOffice {
   private Bank bank;
   private boolean isWorking;
   private boolean isAtmPlaceable;
-  private int atmCount;
   private boolean isCreditAvailable;
   private boolean isCashWithdrawalAvailable;
   private boolean isCashDepositAvailable;
@@ -25,7 +24,6 @@ public class BankOffice {
     bank = null;
     isWorking = false;
     isAtmPlaceable = false;
-    atmCount = 0;
     isCreditAvailable = false;
     isCashWithdrawalAvailable = false;
     isCashDepositAvailable = false;
@@ -52,14 +50,13 @@ public class BankOffice {
     this.address = address;
   }
 
-  public BankOffice(String name, String address, Bank bank, boolean isWorking, boolean isAtmPlaceable, int atmCount, boolean isCreditAvailable, boolean isCashWithdrawalAvailable, boolean isCashDepositAvailable, double totalMoney, double rentPrice) {
+  public BankOffice(String name, String address, Bank bank, boolean isWorking, boolean isAtmPlaceable, boolean isCreditAvailable, boolean isCashWithdrawalAvailable, boolean isCashDepositAvailable, double totalMoney, double rentPrice) {
     initializeId();
     this.name = name;
     this.address = address;
     this.bank = bank;
     this.isWorking = isWorking;
     this.isAtmPlaceable = isAtmPlaceable;
-    this.atmCount = atmCount;
     this.isCreditAvailable = isCreditAvailable;
     this.isCashWithdrawalAvailable = isCashWithdrawalAvailable;
     this.isCashDepositAvailable = isCashDepositAvailable;
@@ -74,7 +71,6 @@ public class BankOffice {
     this.bank = bankOffice.getBank();
     this.isWorking = bankOffice.getIsWorking();
     this.isAtmPlaceable = bankOffice.getIsAtmPlaceable();
-    this.atmCount = bankOffice.getAtmCount();
     this.isCreditAvailable = bankOffice.getIsCreditAvailable();
     this.isCashWithdrawalAvailable = bankOffice.getIsCashWithdrawalAvailable();
     this.isCashDepositAvailable = bankOffice.getIsCashDepositAvailable();
@@ -92,7 +88,7 @@ public class BankOffice {
       "\tbank: " + (bank == null ? "null" : bank.getName()) + ",\n" +
       "\tisWorking: " + isWorking + ",\n" +
       "\tisAtmPlaceable: " + isAtmPlaceable + ",\n" +
-      "\tatmCount: " + atmCount + ",\n" +
+      // "\tatmCount: " + atmCount + ",\n" +
       "\tisCreditAvailable: " + isCreditAvailable + ",\n" +
       "\tisCashWithdrawalAvailable: " + isCashWithdrawalAvailable + ",\n" +
       "\tisCashDepositAvailable: " + isCashDepositAvailable + ",\n" +
@@ -147,14 +143,6 @@ public class BankOffice {
 
   public boolean getIsAtmPlaceable() {
     return isAtmPlaceable;
-  }
-
-  public void setAtmCount(int atmCount) {
-    this.atmCount = atmCount;
-  }
-
-  public int getAtmCount() {
-    return atmCount;
   }
 
   public void setIsCreditAvailable(boolean isCreditAvailable) {

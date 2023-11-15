@@ -69,7 +69,6 @@ public class Main {
           bank, 
           true, 
           true,
-          0,
           true,
           true,
           true,

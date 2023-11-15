@@ -4,8 +4,6 @@ public class Bank {
   private static int currentId;
   private int id;
   private String name;
-  private short officeCount;
-  private int atmCount;
   private int employeeCount;
   private int userCount;
   private byte rating;
@@ -18,8 +16,6 @@ public class Bank {
 
   private void initializeWithDefaults() {
     name = "No name";
-    officeCount = 0;
-    atmCount = 0;
     employeeCount = 0;
     userCount = 0;
   }
@@ -47,8 +43,8 @@ public class Bank {
       "\nBank: {\n" +
       "\tid: " + id + ",\n" +
       "\tname: " + name + ",\n" +
-      "\tofficeCount: " + officeCount + ",\n" +
-      "\tatmCount: " + atmCount + ",\n" +
+      // "\tofficeCount: " + officeCount + ",\n" +
+      // "\tatmCount: " + atmCount + ",\n" +
       "\temployeeCount: " + employeeCount + ",\n" +
       "\tuserCount: " + userCount + ",\n" +
       "\trating: " + rating + ",\n" +
@@ -71,22 +67,6 @@ public class Bank {
 
   public String getName() {
     return name;
-  }
-
-  public void setOfficeCount(short officeCount) {
-    this.officeCount = officeCount;
-  }
-
-  public short getOfficeCount() {
-    return officeCount;
-  }
-
-  public void setAtmCount(int atmCount) {
-    this.atmCount = atmCount;
-  }
-
-  public int getAtmCount() {
-    return atmCount;
   }
 
   public void setEmployeeCount(int employeeCount) {
