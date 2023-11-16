@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import tech.reliab.course.nikolotovai.bank.entity.PaymentAccount;
+import tech.reliab.course.nikolotovai.bank.exception.UniquenessException;
 import tech.reliab.course.nikolotovai.bank.service.PaymentAccountService;
 import tech.reliab.course.nikolotovai.bank.service.UserService;
 
@@ -17,7 +18,7 @@ public class PaymentAccountServiceImpl implements PaymentAccountService {
     this.userService = userService;
   }
 
-  public PaymentAccount create(PaymentAccount paymentAccount) {
+  public PaymentAccount create(PaymentAccount paymentAccount) throws UniquenessException {
     if (paymentAccount == null) {
       return null;
     }
@@ -33,6 +34,11 @@ public class PaymentAccountServiceImpl implements PaymentAccountService {
     }
 
     PaymentAccount createdPaymentAccount = new PaymentAccount(paymentAccount);
+
+    if (paymentAccountsTable.containsKey(createdPaymentAccount.getId())) {
+      throw new UniquenessException("PaymentAccount", createdPaymentAccount.getId());
+    }
+
     paymentAccountsTable.put(createdPaymentAccount.getId(), createdPaymentAccount);
     userService.addPaymentAccount(createdPaymentAccount.getUser().getId(), createdPaymentAccount);
 

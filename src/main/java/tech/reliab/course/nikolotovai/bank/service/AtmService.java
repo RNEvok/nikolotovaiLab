@@ -3,11 +3,13 @@ package tech.reliab.course.nikolotovai.bank.service;
 import java.util.List;
 
 import tech.reliab.course.nikolotovai.bank.entity.BankAtm;
+import tech.reliab.course.nikolotovai.bank.exception.UniquenessException;
 
 public interface AtmService {
-  BankAtm create(BankAtm bankAtm);
+  BankAtm create(BankAtm bankAtm) throws UniquenessException;
   public BankAtm getBankAtmById(int id);
   public List<BankAtm> getAllBankAtms();
   boolean depositMoney(BankAtm bankAtm, double amount);
   boolean withdrawMoney(BankAtm bankAtm, double amount);
+  public boolean isAtmSuitable(BankAtm bankAtm, double sum);
 }

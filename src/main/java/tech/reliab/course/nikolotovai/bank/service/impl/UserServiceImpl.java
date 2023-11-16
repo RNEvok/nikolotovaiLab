@@ -1,6 +1,7 @@
 package tech.reliab.course.nikolotovai.bank.service.impl;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,9 @@ import static tech.reliab.course.nikolotovai.bank.utils.Constants.*;
 import tech.reliab.course.nikolotovai.bank.entity.CreditAccount;
 import tech.reliab.course.nikolotovai.bank.entity.PaymentAccount;
 import tech.reliab.course.nikolotovai.bank.entity.User;
+import tech.reliab.course.nikolotovai.bank.exception.NoPaymentAccountException;
+import tech.reliab.course.nikolotovai.bank.exception.NotFoundException;
+import tech.reliab.course.nikolotovai.bank.exception.UniquenessException;
 import tech.reliab.course.nikolotovai.bank.service.BankService;
 import tech.reliab.course.nikolotovai.bank.service.UserService;
 
@@ -30,7 +34,7 @@ public class UserServiceImpl implements UserService {
     return rating;
   }
 
-  public User create(User user) {
+  public User create(User user) throws UniquenessException {
     if (user == null) {
       return null;
     }
@@ -46,6 +50,10 @@ public class UserServiceImpl implements UserService {
     }
 
     User createdUser = new User(user);
+
+    if (usersTable.containsKey(createdUser.getId())) {
+      throw new UniquenessException("User", createdUser.getId());
+    }
 
     final Random random = new Random();
 
@@ -129,5 +137,15 @@ public class UserServiceImpl implements UserService {
   public List<PaymentAccount> getAllPaymentAccountsByUserId(int userId) {
     List<PaymentAccount> userPaymentAccounts = paymentAccountsByUserIdTable.get(userId);
     return userPaymentAccounts;
+  }
+
+  public PaymentAccount getBestPaymentAccount(int id) throws NotFoundException, NoPaymentAccountException {
+    List<PaymentAccount> paymentAccounts = getAllPaymentAccountsByUserId(id);
+    PaymentAccount paymentAccount = paymentAccounts
+      .stream()
+      .min(Comparator.comparing(PaymentAccount::getBalance))
+      .orElseThrow(NoPaymentAccountException::new);
+      
+    return paymentAccount;
   }
 }

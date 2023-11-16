@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import tech.reliab.course.nikolotovai.bank.entity.CreditAccount;
+import tech.reliab.course.nikolotovai.bank.exception.PaymentException;
+import tech.reliab.course.nikolotovai.bank.exception.UniquenessException;
 import tech.reliab.course.nikolotovai.bank.service.CreditAccountService;
 import tech.reliab.course.nikolotovai.bank.service.UserService;
 
@@ -17,7 +19,7 @@ public class CreditAccountServiceImpl implements CreditAccountService {
     this.userService = userService;
   }
 
-  public CreditAccount create(CreditAccount creditAccount) {
+  public CreditAccount create(CreditAccount creditAccount) throws UniquenessException {
     if (creditAccount == null) {
       return null;
     }
@@ -42,11 +44,12 @@ public class CreditAccountServiceImpl implements CreditAccountService {
       return null;
     }
 
-    // Возможно здесь потребуется дописать рассчет параметров кредита
-
-    // Проверять approve ли кредит банк
-
     CreditAccount createdCreditAccount = new CreditAccount(creditAccount);
+
+    if (creditAccountsTable.containsKey(createdCreditAccount.getId())) {
+      throw new UniquenessException("CreditAccount", createdCreditAccount.getId());
+    }
+
     creditAccountsTable.put(createdCreditAccount.getId(), createdCreditAccount);
     userService.addCreditAccount(createdCreditAccount.getUser().getId(), createdCreditAccount);
 
@@ -67,7 +70,7 @@ public class CreditAccountServiceImpl implements CreditAccountService {
     return new ArrayList<CreditAccount>(creditAccountsTable.values());
   }
 
-  public boolean makeMonthlyPayment(CreditAccount account) {
+  public boolean makeMonthlyPayment(CreditAccount account) throws PaymentException {
     if (account == null || account.getPaymentAccount() == null) {
       System.out.println("makeMonthlyPayment Error: no account to take money from!");
       return false;
@@ -77,8 +80,7 @@ public class CreditAccountServiceImpl implements CreditAccountService {
     final double paymentAccountBalance = account.getPaymentAccount().getBalance();
 
     if (paymentAccountBalance < monthlyPayment) {
-      System.out.println("makeMonthlyPayment Error: unable to proceed operation - not enough balance for monthly payment.");
-      return false;
+      throw new PaymentException("makeMonthlyPayment: unable to proceed operation - not enough balance for monthly payment.");
     }
 
     account.getPaymentAccount().setBalance(paymentAccountBalance - monthlyPayment);

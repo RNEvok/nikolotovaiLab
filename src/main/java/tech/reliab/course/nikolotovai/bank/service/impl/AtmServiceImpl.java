@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import tech.reliab.course.nikolotovai.bank.entity.BankAtm;
+import tech.reliab.course.nikolotovai.bank.exception.UniquenessException;
 import tech.reliab.course.nikolotovai.bank.service.AtmService;
 import tech.reliab.course.nikolotovai.bank.service.BankOfficeService;
 
@@ -17,7 +18,7 @@ public class AtmServiceImpl implements AtmService {
     this.bankOfficeService = bankOfficeService;
   }
 
-  public BankAtm create(BankAtm bankAtm) {
+  public BankAtm create(BankAtm bankAtm) throws UniquenessException {
     if (bankAtm == null) {
       return null;
     }
@@ -42,12 +43,16 @@ public class AtmServiceImpl implements AtmService {
       return null;
     }
 
-    BankAtm createdBankAtm =  new BankAtm(bankAtm);
+    BankAtm atm =  new BankAtm(bankAtm);
 
-    atmsTable.put(createdBankAtm.getId(), createdBankAtm);		
-    bankOfficeService.installAtm(createdBankAtm.getBankOffice().getId(), createdBankAtm);
+    if (atmsTable.containsKey(atm.getId())) {
+      throw new UniquenessException("ATM", atm.getId());
+    }
 
-    return createdBankAtm;
+    atmsTable.put(atm.getId(), atm);		
+    bankOfficeService.installAtm(atm.getBankOffice().getId(), atm);
+
+    return atm;
   }
 
   public BankAtm getBankAtmById(int id) {
@@ -111,5 +116,9 @@ public class AtmServiceImpl implements AtmService {
     // Вычитать деньги из офиса и банка
 
     return true;
+  }
+
+  public boolean isAtmSuitable(BankAtm bankAtm, double sum) {
+    return bankAtm.getTotalMoney() >= sum;
   }
 }

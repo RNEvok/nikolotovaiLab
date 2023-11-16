@@ -7,6 +7,7 @@ import java.util.Map;
 
 import tech.reliab.course.nikolotovai.bank.entity.BankOffice;
 import tech.reliab.course.nikolotovai.bank.entity.Employee;
+import tech.reliab.course.nikolotovai.bank.exception.UniquenessException;
 import tech.reliab.course.nikolotovai.bank.service.BankOfficeService;
 import tech.reliab.course.nikolotovai.bank.service.EmployeeService;
 
@@ -18,7 +19,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     this.bankOfficeService = bankOfficeService;
   }
 
-  public Employee create(Employee employee) {
+  public Employee create(Employee employee) throws UniquenessException {
     if (employee == null) {
       return null;
     }
@@ -39,6 +40,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     Employee createdEmployee = new Employee(employee);
+
+    if (employeesTable.containsKey(createdEmployee.getId())) {
+      throw new UniquenessException("Employee", createdEmployee.getId());
+    }
 
     employeesTable.put(createdEmployee.getId(), createdEmployee);		
     bankOfficeService.addEmployee(employee.getBankOffice().getId(), createdEmployee);
@@ -64,5 +69,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     // написать перевод сотрудника в новый офис когда будут массивы офисов и тд
 
     return true;
+  }
+
+  public boolean isEmployeeSuitable(Employee employee) {
+    return employee.getIsCreditAvailable();
   }
 }

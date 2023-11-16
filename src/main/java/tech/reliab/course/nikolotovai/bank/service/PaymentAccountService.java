@@ -3,9 +3,10 @@ package tech.reliab.course.nikolotovai.bank.service;
 import java.util.List;
 
 import tech.reliab.course.nikolotovai.bank.entity.PaymentAccount;
+import tech.reliab.course.nikolotovai.bank.exception.UniquenessException;
 
 public interface PaymentAccountService {
-  PaymentAccount create(PaymentAccount paymentAccount);
+  PaymentAccount create(PaymentAccount paymentAccount) throws UniquenessException;
   public void printPaymentData(int id);
   public PaymentAccount getPaymentAccountById(int id);
   public List<PaymentAccount> getAllPaymentAccounts();

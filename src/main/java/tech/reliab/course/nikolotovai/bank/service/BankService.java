@@ -7,12 +7,15 @@ import tech.reliab.course.nikolotovai.bank.entity.BankOffice;
 import tech.reliab.course.nikolotovai.bank.entity.CreditAccount;
 import tech.reliab.course.nikolotovai.bank.entity.Employee;
 import tech.reliab.course.nikolotovai.bank.entity.User;
+import tech.reliab.course.nikolotovai.bank.exception.CreditException;
+import tech.reliab.course.nikolotovai.bank.exception.NotFoundException;
+import tech.reliab.course.nikolotovai.bank.exception.UniquenessException;
 
 public interface BankService {
   public void setBankOfficeService(BankOfficeService bankOfficeService);
   public void setUserService(UserService userService);
   // Создание банка
-  public Bank create(Bank bank);
+  public Bank create(Bank bank) throws UniquenessException;
   // Вывод всей информации о банке
   public void printBankData(int id);
   // Получение банка по id
@@ -48,5 +51,14 @@ public interface BankService {
   В операции может быть отказано, если в банке недостаточно денег / сотрудник employee не выдает кредиты /
   доход клиента меньше, чем ежемесячная выплата по кредиту
   */
-  public boolean approveCredit(Bank bank, CreditAccount account, Employee employee);
+  public boolean approveCredit(Bank bank, CreditAccount account, Employee employee) throws CreditException;
+
+  // Возвращает банки, подходящие для выдачи кредита с указанной суммой и длительностью
+  public List<Bank> getBanksSuitable(double sum, int countMonth) throws NotFoundException, CreditException;
+
+  // Подходит ли банк для выдачи суммы
+  public boolean isBankSuitable(Bank bank, double sum) throws NotFoundException;
+
+  // Возвращает список офисов, подходящих для выдачи указанной суммы в банке
+  public List<BankOffice> getBankOfficeSuitableInBank(Bank bank, double sum) throws NotFoundException;
 }
