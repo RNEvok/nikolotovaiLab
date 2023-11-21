@@ -170,7 +170,6 @@ public class BankServiceImpl implements BankService {
   public boolean addEmployee(Bank bank, Employee employee) {
     if (bank != null && employee != null) {
       employee.setBank(bank);
-      bank.setEmployeeCount(bank.getEmployeeCount() + 1);
       return true;
     }
     return false;
@@ -178,14 +177,14 @@ public class BankServiceImpl implements BankService {
 
   public boolean removeEmployee(Bank bank, Employee employee) {
     if (bank != null && employee != null) {
-      final int newEmployeeCount = bank.getEmployeeCount() - 1;
+      // final int newEmployeeCount = bank.getEmployeeCount() - 1;
 
-      if (newEmployeeCount < 0) {
-        System.out.println("Error: cannot remove employee, bank has no employees");
-        return false;
-      }
+      // if (newEmployeeCount < 0) {
+      //   System.out.println("Error: cannot remove employee, bank has no employees");
+      //   return false;
+      // }
 
-      bank.setEmployeeCount(newEmployeeCount);
+      // bank.setEmployeeCount(newEmployeeCount);
       
       return true;
     }
@@ -197,7 +196,6 @@ public class BankServiceImpl implements BankService {
 
     if (bank != null && user != null) {
       user.setBank(bank);
-      bank.setUserCount(bank.getUserCount() + 1);
       List<User> users = usersByBankIdTable.get(bankId);
       users.add(user);
       return true;
@@ -207,14 +205,14 @@ public class BankServiceImpl implements BankService {
 
   public boolean removeClient(Bank bank, User user) {
     if (bank != null && user != null) {
-      int newUserCount = bank.getUserCount() - 1;
+      // int newUserCount = bank.getUserCount() - 1;
 
-      if (newUserCount < 0) {
-        System.out.println("Error: cannot remove user, bank has no users");
-        return false;
-      }
+      // if (newUserCount < 0) {
+      //   System.out.println("Error: cannot remove user, bank has no users");
+      //   return false;
+      // }
 
-      bank.setUserCount(newUserCount);
+      // bank.setUserCount(newUserCount);
       return true;
     }
     return false;

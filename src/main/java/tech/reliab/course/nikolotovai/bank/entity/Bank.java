@@ -4,8 +4,6 @@ public class Bank {
   private static int currentId;
   private int id;
   private String name;
-  private int employeeCount;
-  private int userCount;
   private byte rating;
   private double totalMoney;
   private double interestRate;
@@ -16,8 +14,6 @@ public class Bank {
 
   private void initializeWithDefaults() {
     name = "No name";
-    employeeCount = 0;
-    userCount = 0;
   }
 
   public Bank() {
@@ -45,8 +41,8 @@ public class Bank {
       "\tname: " + name + ",\n" +
       // "\tofficeCount: " + officeCount + ",\n" +
       // "\tatmCount: " + atmCount + ",\n" +
-      "\temployeeCount: " + employeeCount + ",\n" +
-      "\tuserCount: " + userCount + ",\n" +
+      // "\temployeeCount: " + employeeCount + ",\n" +
+      // "\tuserCount: " + userCount + ",\n" +
       "\trating: " + rating + ",\n" +
       "\ttotalMoney: " + String.format("%.2f", totalMoney) + ",\n" +
       "\tinterestRate: " + String.format("%.2f", interestRate) + "\n" +
@@ -67,22 +63,6 @@ public class Bank {
 
   public String getName() {
     return name;
-  }
-
-  public void setEmployeeCount(int employeeCount) {
-    this.employeeCount = employeeCount;
-  }
-
-  public int getEmployeeCount() {
-    return employeeCount;
-  }
-
-  public void setUserCount(int userCount) {
-    this.userCount = userCount;
-  }
-
-  public int getUserCount() {
-    return userCount;
   }
 
   public void setRating(byte rating) {
