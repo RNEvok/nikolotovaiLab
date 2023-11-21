@@ -172,7 +172,7 @@ public class Main {
         }
       }
 
-      System.out.println("\nWelcome to lab2.");
+      System.out.println("\nWelcome to lab3.");
       System.out.println("Number of banks in system: " + bankService.getAllBanks().size());
       for (Bank bank : bankService.getAllBanks()) {
         System.out.println("id: " + bank.getId() + " - " + bank.getName());
