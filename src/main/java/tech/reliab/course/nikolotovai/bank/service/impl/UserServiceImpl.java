@@ -83,17 +83,13 @@ public class UserServiceImpl implements UserService {
       List<PaymentAccount> paymentAccounts = paymentAccountsByUserIdTable.get(id);
       if (paymentAccounts != null) {
         System.out.println("Payment accounts:");
-        paymentAccounts.forEach((PaymentAccount paymentAccount) -> {
-          System.out.println(paymentAccount);
-        });
+        paymentAccounts.forEach(System.out::println);
       }
 
       List<CreditAccount> creditAccounts = creditAccountsByUserIdTable.get(id);
       if (creditAccounts != null) {
         System.out.println("Credit accounts:");
-        creditAccounts.forEach((CreditAccount creditAccount) -> {
-          System.out.println(creditAccount);
-        });
+        creditAccounts.forEach(System.out::println);
       }
     }
   }

@@ -84,17 +84,13 @@ public class BankOfficeServiceImpl implements BankOfficeService {
     List<Employee> employees = employeesByOfficeIdTable.get(id);
     if (employees != null) {
       System.out.println("Employees:");
-      employees.forEach((Employee employee) -> {
-        System.out.println(employee);
-      });
+      employees.forEach(System.out::println);
     }
 
     List<BankAtm> atms = atmsByOfficeIdTable.get(id);
     if (atms != null) {
       System.out.println("ATMs:");
-      atms.forEach((BankAtm atm) -> {
-        System.out.println(atm);
-      });
+      atms.forEach(System.out::println);
     }
   }
 
