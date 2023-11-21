@@ -1,6 +1,6 @@
 package tech.reliab.course.nikolotovai.bank.exception;
 
-public class PaymentException extends Exception {
+public class PaymentException extends RuntimeException {
   public PaymentException(String msg) {
 		super("Error: can not " + msg + " - not enough balance.");
 	}
