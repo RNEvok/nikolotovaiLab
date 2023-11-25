@@ -144,7 +144,11 @@ public class Bank {
     accounts.add(account);
   }
 
-  public List<Account> geAccounts() {
+  public List<Account> getAccounts() {
     return accounts;
+  }
+
+  public void removeUser(User user) {
+    users.remove(users.indexOf(user));
   }
 }

@@ -17,6 +17,9 @@ public interface UserService {
   public boolean addPaymentAccount(int userId, PaymentAccount paymentAccount);
   public boolean addCreditAccount(int userId, CreditAccount creditAccount);
   public List<PaymentAccount> getAllPaymentAccountsByUserId(int userId);
+  public List<CreditAccount> getAllCreditAccountsByUserId(int userId);
   public int calculateCreditRating(User user);
   public PaymentAccount getBestPaymentAccount(int id) throws NotFoundException, NoPaymentAccountException;
+  public boolean transferUserToAnotherBank(User user, int newBankId);
+  public boolean exportUserAccountsToTxtFile(int userId, int bankId) throws NoPaymentAccountException;
 }

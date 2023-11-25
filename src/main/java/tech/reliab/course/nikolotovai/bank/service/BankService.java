@@ -55,4 +55,7 @@ public interface BankService {
 
   // Возвращает список офисов, подходящих для выдачи указанной суммы в банке
   public List<BankOffice> getBankOfficeSuitableInBank(Bank bank, double sum) throws NotFoundException;
+
+  // Перевести клиента из одного банка в другой
+  public boolean transferClient(User user, int newBankId);
 }

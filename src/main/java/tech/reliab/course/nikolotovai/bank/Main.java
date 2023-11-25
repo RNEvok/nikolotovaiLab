@@ -1,6 +1,5 @@
 package tech.reliab.course.nikolotovai.bank;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Locale;
@@ -57,6 +56,8 @@ public class Main {
     bankService.setUserService(userService);
     PaymentAccountService paymentAccountService = new PaymentAccountServiceImpl(userService);
     CreditAccountService creditAccountService = new CreditAccountServiceImpl(userService);
+    paymentAccountService.setCreditAccountService(creditAccountService);
+    paymentAccountService.setBankService(bankService);
 
     try {
       // Создание банков
@@ -183,6 +184,8 @@ public class Main {
           System.out.println("b - check bank data by bank id");
           System.out.println("u - check user data by user id");
           System.out.println("a - apply for a credit");
+          System.out.println("e - export user accounts by bank id to .txt file");
+          System.out.println("i - import accounts from .txt file and move them to another bank");
           System.out.println("q - quit program");
 
           String action = scanner.nextLine();
@@ -259,12 +262,48 @@ public class Main {
             } else {
               System.out.println("Credit was not approved");
             }
+          } else if (action.equals("e")) {
+            System.out.println("Available users:");
+            for (User user : userService.getAllUsers()) {
+              System.out.println("id: " + user.getId() + " - " + user.getName());
+            }
+
+            System.out.println("Enter user id:");
+            int userId = scanner.nextInt();
+            scanner.nextLine();
+
+            System.out.println("Enter bank id:");
+            int bankId = scanner.nextInt();
+            scanner.nextLine();
+
+            boolean success = userService.exportUserAccountsToTxtFile(userId, bankId);
+
+            if (success) {
+              System.out.println(COLOR_GREEN + "Export done successfully" + COLOR_RESET);
+            } else {
+              System.out.println(COLOR_RED + "Export operation wasn't done" + COLOR_RESET);
+            }
+          } else if (action.equals("i")) {
+            System.out.println("Enter file name:");
+            String fileName = scanner.nextLine();
+
+            System.out.println("Enter new bank id:");
+            int newBankId = scanner.nextInt();
+            scanner.nextLine();
+
+            boolean success = paymentAccountService.importAccountsFromTxtAndTransferToAnotherBank(fileName, newBankId);
+
+            if (success) {
+              System.out.println(COLOR_GREEN + "Import done successfully" + COLOR_RESET);
+            } else {
+              System.out.println(COLOR_RED + "Import operation wasn't done" + COLOR_RESET);
+            }
           } else if (action.equals("q")) {
             break;
           } else {
             System.out.println("Error: unknown action. Please, try again");
           }
-        } catch (CreditException | NotFoundException e) {
+        } catch (CreditException | NotFoundException | NoPaymentAccountException e) {
           System.err.println(e.getMessage());
         }
       }

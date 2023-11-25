@@ -3,15 +3,26 @@ package tech.reliab.course.nikolotovai.bank.entity;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import com.google.gson.annotations.Expose;
+
 public class CreditAccount extends Account {
+  @Expose(serialize = false)
   private LocalDate dateStart;
+  @Expose(serialize = false)
   private LocalDate dateEnd;
+  @Expose(serialize = true)
   private int monthCount;
+  @Expose(serialize = true)
   private double creditAmount;
+  @Expose(serialize = true)
   private double remainingCreditAmount;
+  @Expose(serialize = true)
   private double monthlyPayment;
+  @Expose(serialize = true)
   private double interestRate;
+  @Expose(serialize = true)
   private Employee employee;
+  @Expose(serialize = true)
   private PaymentAccount paymentAccount;
 
   private void initializeWithDefaults() {

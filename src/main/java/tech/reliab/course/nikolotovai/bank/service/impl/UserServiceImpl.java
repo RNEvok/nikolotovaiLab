@@ -1,5 +1,7 @@
 package tech.reliab.course.nikolotovai.bank.service.impl;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -7,8 +9,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import static tech.reliab.course.nikolotovai.bank.utils.Constants.*;
 
+import tech.reliab.course.nikolotovai.bank.entity.Account;
 import tech.reliab.course.nikolotovai.bank.entity.CreditAccount;
 import tech.reliab.course.nikolotovai.bank.entity.PaymentAccount;
 import tech.reliab.course.nikolotovai.bank.entity.User;
@@ -139,6 +145,11 @@ public class UserServiceImpl implements UserService {
     return userPaymentAccounts;
   }
 
+  public List<CreditAccount> getAllCreditAccountsByUserId(int userId) {
+    List<CreditAccount> userCreditAccounts = creditAccountsByUserIdTable.get(userId);
+    return userCreditAccounts;
+  }
+
   public PaymentAccount getBestPaymentAccount(int id) throws NotFoundException, NoPaymentAccountException {
     List<PaymentAccount> paymentAccounts = getAllPaymentAccountsByUserId(id);
     PaymentAccount paymentAccount = paymentAccounts
@@ -147,5 +158,44 @@ public class UserServiceImpl implements UserService {
       .orElseThrow(NoPaymentAccountException::new);
       
     return paymentAccount;
+  }
+
+  public boolean transferUserToAnotherBank(User user, int newBankId) {
+    return bankService.transferClient(user, newBankId);
+  }
+
+  public boolean exportUserAccountsToTxtFile(int userId, int bankId) throws NoPaymentAccountException {
+    // List<PaymentAccount> userPaymentAccounts = getAllPaymentAccountsByUserId(userId);
+    List<CreditAccount> userCreditAccounts = getAllCreditAccountsByUserId(userId);
+
+    // List<Account> userAccountsByBankId = new ArrayList<Account>();
+
+    // for (PaymentAccount account : userPaymentAccounts) {
+    //   if (account.getBank().getId() == bankId)
+    //     userAccountsByBankId.add(account);
+    // }
+    // for (CreditAccount account : userCreditAccounts) {
+    //   if (account.getBank().getId() == bankId)
+    //     userAccountsByBankId.add(account);
+    // }
+
+    if (userCreditAccounts.size() == 0)
+      throw new NoPaymentAccountException();
+
+    try {
+      // PrintWriter out = new PrintWriter("user_" + userId + "_accounts_of_bank_" + bankId + ".txt");
+      PrintWriter out = new PrintWriter("a.txt");
+      Gson gson = new GsonBuilder()
+        .setPrettyPrinting()
+        .excludeFieldsWithoutExposeAnnotation()
+        .create();
+      out.println(gson.toJson(userCreditAccounts));
+      out.close();
+      return true;
+    } catch (FileNotFoundException e) {
+      System.err.println("File writer error");
+      e.printStackTrace();
+      return false;
+    }
   }
 }
