@@ -1,5 +1,8 @@
 package tech.reliab.course.nikolotovai.bank.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Bank {
   private static int currentId;
   private int id;
@@ -7,6 +10,11 @@ public class Bank {
   private byte rating;
   private double totalMoney;
   private double interestRate;
+  private List<Employee> employees;
+  private List<User> users;
+  private List<BankOffice> bankOffices;
+  private List<BankAtm> bankAtms;
+  private List<Account> accounts;
 
   private void initializeId() {
     id = currentId++;
@@ -14,6 +22,11 @@ public class Bank {
 
   private void initializeWithDefaults() {
     name = "No name";
+    employees = new ArrayList<>();
+    users = new ArrayList<>();
+    bankOffices = new ArrayList<>();
+    bankAtms = new ArrayList<>();
+    accounts = new ArrayList<>();
   }
 
   public Bank() {
@@ -39,10 +52,10 @@ public class Bank {
       "\nBank: {\n" +
       "\tid: " + id + ",\n" +
       "\tname: " + name + ",\n" +
-      // "\tofficeCount: " + officeCount + ",\n" +
-      // "\tatmCount: " + atmCount + ",\n" +
-      // "\temployeeCount: " + employeeCount + ",\n" +
-      // "\tuserCount: " + userCount + ",\n" +
+      "\tofficeCount: " + bankOffices.size() + ",\n" +
+      "\tatmCount: " + bankAtms.size() + ",\n" +
+      "\temployeeCount: " + employees.size() + ",\n" +
+      "\tuserCount: " + users.size() + ",\n" +
       "\trating: " + rating + ",\n" +
       "\ttotalMoney: " + String.format("%.2f", totalMoney) + ",\n" +
       "\tinterestRate: " + String.format("%.2f", interestRate) + "\n" +
@@ -87,5 +100,51 @@ public class Bank {
 
   public double getInterestRate() {
     return interestRate;
+  }
+
+  public void addEmployee(Employee employee) {
+    employees.add(employee);
+  }
+
+  public List<Employee> getEmployees() {
+    return employees;
+  }
+
+  public void addUser(User user) {
+    users.add(user);
+  }
+
+  public List<User> getUsers() {
+    return users;
+  }
+
+  public void addOffice(BankOffice bankOffice) {
+    for (BankAtm bankAtm : bankOffice.getAtms()) {
+      addAtm(bankAtm);
+    }
+    for (Employee employee : bankOffice.getEmployees()) {
+      addEmployee(employee);
+    }
+    bankOffices.add(bankOffice);
+  }
+
+  public List<BankOffice> getBankOffices() {
+    return bankOffices;
+  }
+
+  public void addAtm(BankAtm bankAtm) {
+    bankAtms.add(bankAtm);
+  }
+
+  public List<BankAtm> getAtms() {
+    return bankAtms;
+  }
+
+  public void addAccount(Account account) {
+    accounts.add(account);
+  }
+
+  public List<Account> geAccounts() {
+    return accounts;
   }
 }

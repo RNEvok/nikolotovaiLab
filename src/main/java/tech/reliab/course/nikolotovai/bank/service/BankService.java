@@ -24,18 +24,12 @@ public interface BankService {
   public List<Bank> getAllBanks();
   // Добавление офиса
   public boolean addOffice(int bankId, BankOffice bankOffice);
-  // Удаление офиса
-  public boolean removeOffice(int bankId, BankOffice bankOffice);
   // Получение всех офисов банка
   public List<BankOffice> getAllOfficesByBankId(int bankId);
   // Добавление сотрудника
   public boolean addEmployee(Bank bank, Employee employee);
-  // Удаление сотрудника
-  public boolean removeEmployee(Bank bank, Employee employee);
   // Добавление клиента
   public boolean addClient(int bankId, User user);
-  // Удаление клиента
-  public boolean removeClient(Bank bank, User user);
   // Вычисление процентной ставки банка (чем выше рейтинг, тем ниже ставка).
   public double calculateInterestRate(Bank bank);
   /*

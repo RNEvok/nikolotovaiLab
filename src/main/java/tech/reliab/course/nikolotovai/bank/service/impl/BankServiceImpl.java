@@ -90,11 +90,11 @@ public class BankServiceImpl implements BankService {
       return;
     }
 
-    System.out.println("=========================");
+    System.out.println(COLOR_BLUE + "=========================" + COLOR_RESET);
     System.out.println(bank);
     List<BankOffice> offices = officesByBankIdTable.get(id);
     if (offices != null) {
-      System.out.println("Bank offices:");
+      System.out.println(COLOR_PURPLE + "Bank offices:" + COLOR_RESET);
       offices.forEach((BankOffice office) -> {
         bankOfficeService.printBankOfficeData(office.getId());
         // System.out.println(office);
@@ -103,12 +103,12 @@ public class BankServiceImpl implements BankService {
 
     List<User> users = usersByBankIdTable.get(id);
     if (users != null) {
-      System.out.println("Users:");
+      System.out.println(COLOR_PURPLE + "Users:" + COLOR_RESET);
       users.forEach((User user) -> {
         userService.printUserData(user.getId(), false);
       });
     }
-    System.out.println("=========================");
+    System.out.println(COLOR_BLUE + "=========================" + COLOR_RESET);
   }
 
   public Bank getBankById(int id) {
@@ -132,25 +132,7 @@ public class BankServiceImpl implements BankService {
       depositMoney(bankId, bankOffice.getTotalMoney());
       List<BankOffice> bankOffices = officesByBankIdTable.get(bankId);
       bankOffices.add(bankOffice);
-      return true;
-    }
-    return false;
-  }
-
-  public boolean removeOffice(int bankId, BankOffice bankOffice) {
-    Bank bank = getBankById(bankId);
-    int officeIndex = officesByBankIdTable.get(bankId).indexOf(bankOffice);
-
-    if (bank != null && officeIndex >= 0) {
-      // final short newOfficeCount = (short)(bank.getOfficeCount() - 1);
-
-      // if (newOfficeCount < 0) {
-      //   System.out.println("Error: cannot remove office, bank has no offices");
-      //   return false;
-      // }
-
-      officesByBankIdTable.get(bankId).remove(officeIndex);
-
+      bank.addOffice(bankOffice);
       return true;
     }
     return false;
@@ -170,22 +152,7 @@ public class BankServiceImpl implements BankService {
   public boolean addEmployee(Bank bank, Employee employee) {
     if (bank != null && employee != null) {
       employee.setBank(bank);
-      return true;
-    }
-    return false;
-  }
-
-  public boolean removeEmployee(Bank bank, Employee employee) {
-    if (bank != null && employee != null) {
-      // final int newEmployeeCount = bank.getEmployeeCount() - 1;
-
-      // if (newEmployeeCount < 0) {
-      //   System.out.println("Error: cannot remove employee, bank has no employees");
-      //   return false;
-      // }
-
-      // bank.setEmployeeCount(newEmployeeCount);
-      
+      bank.addEmployee(employee);
       return true;
     }
     return false;
@@ -198,21 +165,7 @@ public class BankServiceImpl implements BankService {
       user.setBank(bank);
       List<User> users = usersByBankIdTable.get(bankId);
       users.add(user);
-      return true;
-    }
-    return false;
-  }
-
-  public boolean removeClient(Bank bank, User user) {
-    if (bank != null && user != null) {
-      // int newUserCount = bank.getUserCount() - 1;
-
-      // if (newUserCount < 0) {
-      //   System.out.println("Error: cannot remove user, bank has no users");
-      //   return false;
-      // }
-
-      // bank.setUserCount(newUserCount);
+      bank.addUser(user);
       return true;
     }
     return false;

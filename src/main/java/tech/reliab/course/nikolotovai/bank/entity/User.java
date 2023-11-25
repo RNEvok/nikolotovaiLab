@@ -2,18 +2,22 @@ package tech.reliab.course.nikolotovai.bank.entity;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class User extends Human {
   private String placeOfWork;
   private double monthlyIncome;
   private Bank bank;
   private int creditRating;
+  private List<Account> accounts;
 
   private void initializeWithDefaults() {
     placeOfWork = "";
     monthlyIncome = 0;
     bank = null;
     creditRating = 0;
+    accounts = new ArrayList<>();
   }
 
   public User() {
@@ -27,6 +31,7 @@ public class User extends Human {
     this.monthlyIncome = monthlyIncome;
     this.bank = bank;
     this.creditRating = creditRating;
+    accounts = new ArrayList<>();
   }
 
   public User(String name, LocalDate birthDate) {
@@ -40,6 +45,7 @@ public class User extends Human {
     this.monthlyIncome = monthlyIncome;
     this.bank = bank;
     this.creditRating = creditRating;
+    accounts = new ArrayList<>();
   }
 
   public User(User user) {
@@ -48,6 +54,7 @@ public class User extends Human {
     this.monthlyIncome = user.getMonthlyIncome();
     this.bank = user.getBank();
     this.creditRating = user.getCreditRating();
+    accounts = new ArrayList<>();
   }
 
   @Override
@@ -94,5 +101,13 @@ public class User extends Human {
 
   public int getCreditRating() {
     return creditRating;
+  }
+
+  public void addAccount(Account account) {
+    accounts.add(account);
+  }
+
+  public List<Account> geAccounts() {
+    return accounts;
   }
 }

@@ -82,13 +82,13 @@ public class UserServiceImpl implements UserService {
     if (withAccounts) {
       List<PaymentAccount> paymentAccounts = paymentAccountsByUserIdTable.get(id);
       if (paymentAccounts != null) {
-        System.out.println("Payment accounts:");
+        System.out.println(COLOR_PURPLE + "Payment accounts:" + COLOR_RESET);
         paymentAccounts.forEach(System.out::println);
       }
 
       List<CreditAccount> creditAccounts = creditAccountsByUserIdTable.get(id);
       if (creditAccounts != null) {
-        System.out.println("Credit accounts:");
+        System.out.println(COLOR_PURPLE + "Credit accounts:" + COLOR_RESET);
         creditAccounts.forEach(System.out::println);
       }
     }
@@ -113,6 +113,8 @@ public class UserServiceImpl implements UserService {
     if (user != null) {
       List<PaymentAccount> userPaymentAccounts = paymentAccountsByUserIdTable.get(userId);
       userPaymentAccounts.add(paymentAccount);
+      user.addAccount(paymentAccount);
+      user.getBank().addAccount(paymentAccount);
       return true;
     }
 
@@ -124,6 +126,8 @@ public class UserServiceImpl implements UserService {
     if (user != null) {
       List<CreditAccount> userCreditAccounts = creditAccountsByUserIdTable.get(userId);
       userCreditAccounts.add(creditAccount);
+      user.addAccount(creditAccount);
+      user.getBank().addAccount(creditAccount);
       return true;
     }
 

@@ -1,5 +1,8 @@
 package tech.reliab.course.nikolotovai.bank.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BankOffice {
   private static int currentId;
   private int id;
@@ -13,6 +16,8 @@ public class BankOffice {
   private boolean isCashDepositAvailable;
   private double totalMoney;
   private double rentPrice;
+  private List<Employee> employees;
+  private List<BankAtm> bankAtms;
 
   private void initializeId() {
     id = currentId++;
@@ -29,6 +34,8 @@ public class BankOffice {
     isCashDepositAvailable = false;
     totalMoney = 0;
     rentPrice = 0;
+    employees = new ArrayList<>();
+    bankAtms = new ArrayList<>();
   }
 
   public BankOffice() {
@@ -62,6 +69,8 @@ public class BankOffice {
     this.isCashDepositAvailable = isCashDepositAvailable;
     this.totalMoney = totalMoney;
     this.rentPrice = rentPrice;
+    employees = new ArrayList<>();
+    bankAtms = new ArrayList<>();
   }
 
   public BankOffice(BankOffice bankOffice) {
@@ -76,6 +85,8 @@ public class BankOffice {
     this.isCashDepositAvailable = bankOffice.getIsCashDepositAvailable();
     this.totalMoney = bankOffice.getTotalMoney();
     this.rentPrice = bankOffice.getRentPrice();
+    employees = new ArrayList<>();
+    bankAtms = new ArrayList<>();
   }
 
   @Override
@@ -88,7 +99,6 @@ public class BankOffice {
       "\tbank: " + (bank == null ? "null" : bank.getName()) + ",\n" +
       "\tisWorking: " + isWorking + ",\n" +
       "\tisAtmPlaceable: " + isAtmPlaceable + ",\n" +
-      // "\tatmCount: " + atmCount + ",\n" +
       "\tisCreditAvailable: " + isCreditAvailable + ",\n" +
       "\tisCashWithdrawalAvailable: " + isCashWithdrawalAvailable + ",\n" +
       "\tisCashDepositAvailable: " + isCashDepositAvailable + ",\n" +
@@ -183,5 +193,21 @@ public class BankOffice {
 
   public double getRentPrice() {
     return rentPrice;
+  }
+
+  public void addEmployee(Employee employee) {
+    employees.add(employee);
+  }
+
+  public List<Employee> getEmployees() {
+    return employees;
+  }
+
+  public void addAtm(BankAtm bankAtm) {
+    bankAtms.add(bankAtm);
+  }
+
+  public List<BankAtm> getAtms() {
+    return bankAtms;
   }
 }
